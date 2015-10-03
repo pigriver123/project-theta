@@ -1,40 +1,59 @@
 \documentclass[11pt]{article}
 \bibliographystyle{siam}
 
-\title{The title of your project proposal: Mixed-Gambles Task}
+\title{Mixed-Gambles Task}
 \author{
 
   Chang, Siyao\\
-  \texttt{github1}
+  \texttt{changsiyao}
   \and
   Hsieh, Benjamin\\
   \texttt{BenjaminHsieh}
   \and
   Gong, Boying\\
-  \texttt{github3}
+  \texttt{boyinggong}
   \and
   Qiu, Brian\\
   \texttt{brianqiu}
   \and
   Zhu, Jiang\\
-  \texttt{github4}
+  \texttt{pigriver123}
 }
 
 \begin{document}
 \maketitle
-Our paper name: The Neural Basis of Loss Aversion in Decision-Making Under Risk
+Our paper name: The Neural Basis of Loss Aversion in Decision-Making Under Risk \cite{Tom2007LossAversion}.
 
-Identify a published fMRI paper and the accompanying data
-\cite{lindquist2008statistical}.  You should explain the basic idea of the
-paper in a paragraph.  You should also perform basic sanity check on the data
-(e.g., can you downloaded, can you load the files, confirm that you have the
-correct number of subjects).
+The mixed gambles paper examines neural and behavioral loss aversion, the
+sensitivity to losses and gains. 16 subjects are given a total of 256
+different loss/gain trials in 3 runs and their behavior and fMRI scans are
+recorded. 
 
-Briefly explain what approach you intend to take for exploring
-the data and paper.  If you intend to ``reproduce'' some aspect of the paper,
-explain in exactly what sense you mean to do this.  If you are thinking about
-validating the data describe the assumpution used in the analysis and indicate
-how you might check them.
+The paper finds that people are roughly twice as sensitive to losses as they
+are to gains. The prior belief is that negative emotions such as fear is the
+main contributor to people being more sensitive to losses and that the
+increasing potential losses would increase brain activities in the parts that
+controls negative emotions. However, the paper discovers that potential loss
+and gain are coded by the same process in the brain, meaning that potential
+gain corresponds to a higher activation of some part of the brain and
+potential loss corresponds to a lower activation of that same part. The paper
+also linked behavioral loss aversion to neural and suggests that individual
+differences in behavioral are due to individual differences in neural
+sensitivity. The paper goes on to specify which regions of the brain are or
+are not activated (the amygdala was largely inactivated to their surprise).
+
+Our objective is to replicate the study as well as we can. We will go through
+each subject and measure each run's BOLD signals at different voxels. We will
+use this data to create a gain/loss matrices to show the acceptance
+probability and response time to all the combinations of gain and losses. We
+will also try to reproduce the parametric approach of the whole-brain
+analyses, look at the effect of potential gains and losses to brain
+activation, and create visualizations to show the brain parts with significant
+change in fMRI signals. With the regression result, we would be able to
+calculate the neural loss aversion, and compare it to the behavior loss
+aversion (calculated from a separate logistic model). We hope that through
+these procedure, we can understand the topic of the paper better, as well as
+checking/verifying the conclusion made by the authors. 
 
 \bibliography{proposal}
 
