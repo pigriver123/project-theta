@@ -1,5 +1,5 @@
 % Project Aleph Progress Report
-% Ross Barnowski, Matthew Brett, Jarrod Millman
+% Brian Qiu, Benjamin Hsieh, Siyao Chao, Boying Gong, Jiang Zhu
 % November 12, 2015
 
 # Background
