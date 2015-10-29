@@ -1,5 +1,5 @@
-% Project Aleph Progress Report
-% Brian Qiu, Benjamin Hsieh, Siyao Chao, Boying Gong, Jiang Zhu
+% Project Theta Progress Report
+% Brian Qiu, Benjamin Hsieh, Siyao Chang, Boying Gong, Jiang Zhu
 % November 12, 2015
 
 # Background
@@ -7,16 +7,16 @@
 ## The Paper
 
 - from OpenFMRI.org
-- ds001
+- ds005
 
 ## The Data
 
-- 12 subjects
-- 2 conditions per subject
+- 16 subjects
+- 4 conditions per subject
 
 ## The Method
 
-- linear regression
+- linear regression(?)
 
 # Initial work
 
