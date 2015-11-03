@@ -4,7 +4,7 @@ import hashlib
 import os
 
 
-d = {'ds005_raw.tgz': "ab475fb09b300744548493394764f50e"}
+d = json.load(open("data/hashList.txt"))
 
 
 def generate_file_md5(filename, blocksize=2**20):
