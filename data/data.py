@@ -32,4 +32,5 @@ def check_hashes(d):
 d = json.load(open("data/hashList.txt"))
 
 if __name__ == "__main__":
+    d = json.load(open("data/hashList.txt"))
     check_hashes(d)
