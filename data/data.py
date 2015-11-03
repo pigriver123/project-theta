@@ -4,9 +4,6 @@ import hashlib
 import os
 
 
-d = {'ds107_sub001_highres.nii': "fd733636ae8abe8f0ffbfadedd23896c"}
-
-
 def generate_file_md5(filename, blocksize=2**20):
     m = hashlib.md5()
     with open(filename, "rb") as f:
@@ -31,4 +28,5 @@ def check_hashes(d):
 
 
 if __name__ == "__main__":
+    d = json.load(open("hashList.txt"))
     check_hashes(d)
