@@ -29,7 +29,8 @@ def check_hashes(d):
     print("There are " + str(counter) + " correct files.")
     return all_good
 
-d = json.load(open("data/hashList.txt"))
+#d = json.load(open("data/hashList.txt"))
+d = {'ds005_raw.tgz': "ab475fb09b300744548493394764f50e"}
 
-#if __name__ == "__main__":
-check_hashes(d)
+if __name__ == "__main__":
+    check_hashes(d)
