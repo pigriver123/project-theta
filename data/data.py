@@ -2,6 +2,7 @@ from __future__ import print_function, division
 
 import hashlib
 import os
+import json
 
 
 d = json.load(open("data/hashList.txt"))
