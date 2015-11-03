@@ -29,7 +29,7 @@ def check_hashes(d):
     print("There are " + str(counter) + " correct files.")
     return all_good
 
+d = json.load(open("hashList.txt"))
 
 if __name__ == "__main__":
-    d = json.load(open("hashList.txt"))
     check_hashes(d)
