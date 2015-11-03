@@ -16,21 +16,20 @@ def generate_file_md5(filename, blocksize=2**20):
 
 
 def check_hashes(d):
-    counter = 0
+    #counter = 0
     all_good = True
     for k, v in d.items():
         digest = generate_file_md5(k)
         if v == digest:
-            counter += 1
-            # print("The file {0} has the correct hash.".format(k))
+            #counter += 1
+            print("The file {0} has the correct hash.".format(k))
         else:
             print("ERROR: The file {0} has the WRONG hash!".format(k))
             all_good = False
-    print("There are " + str(counter) + " correct files.")
+    #print("There are " + str(counter) + " correct files.")
     return all_good
 
-#d = json.load(open("data/hashList.txt"))
-d = {'ds005_raw.tgz': "ab475fb09b300744548493394764f50e"}
+d = json.load(open("data/hashList.txt"))
 
 if __name__ == "__main__":
     check_hashes(d)
