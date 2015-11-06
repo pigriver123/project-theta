@@ -1,10 +1,7 @@
 from __future__ import print_function, division
 import os
-os.chdir('../')
 import hashlib
 import json
-
-d = json.load(open('data/hashList.txt'))
 
 
 def generate_file_md5(filename, blocksize=2**20):
@@ -25,7 +22,7 @@ def check_hashes(d):
         digest = generate_file_md5(k)
         if v == digest:
             counter += 1
-            #print("The file {0} has the correct hash.".format(k))
+            # print("The file {0} has the correct hash.".format(k))
         else:
             print("ERROR: The file {0} has the WRONG hash!".format(k))
             all_good = False
@@ -34,4 +31,6 @@ def check_hashes(d):
 
 
 if __name__ == "__main__":
+    os.chdir('..')
+    d = json.load(open('data/hashList.txt', 'r'))
     check_hashes(d)
