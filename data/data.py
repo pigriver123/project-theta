@@ -32,5 +32,6 @@ def check_hashes(d):
 
 if __name__ == "__main__":
     os.chdir('..')
-    d = json.load(open('data/hashList.txt', 'r'))
+    with open('data/hashList.txt', 'r') as hl:
+        d = json.load(hl)
     check_hashes(d)
