@@ -4,6 +4,7 @@ import hashlib
 import os
 import json
 
+
 os.chdir('..')
 d = json.load(open("data/hashList.txt"))
 
