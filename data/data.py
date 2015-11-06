@@ -1,10 +1,9 @@
 from __future__ import print_function, division
-
-import hashlib
 import os
+os.chdir('../')
+import hashlib
 import json
 
-os.chdir('../')
 d = json.load(open('data/hashList.txt'))
 
 
