@@ -19,7 +19,7 @@ def dvars(file_name, fig_name):
 def fd(file_name, fig_name):
     data = np.loadtxt(file_name)
     # boundary should be set to 0.2-0.5
-    bound = np.array([0.4]*(240))
+    bound = np.array([0.5]*(240))
     fig = plt.figure(figsize=(10,4))
     ax = fig.add_subplot(111)
     plt.xlim(0,240)    
