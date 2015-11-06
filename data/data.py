@@ -2,9 +2,10 @@ from __future__ import print_function, division
 
 import hashlib
 import os
+import json
 
 
-d = {'ds107_sub001_highres.nii': "fd733636ae8abe8f0ffbfadedd23896c"}
+d = json.load(open("data/hashList.txt"))
 
 
 def generate_file_md5(filename, blocksize=2**20):
@@ -20,13 +21,16 @@ def generate_file_md5(filename, blocksize=2**20):
 
 def check_hashes(d):
     all_good = True
+    counter = 0
     for k, v in d.items():
         digest = generate_file_md5(k)
         if v == digest:
-            print("The file {0} has the correct hash.".format(k))
+            counter += 1
+            #print("The file {0} has the correct hash.".format(k))
         else:
             print("ERROR: The file {0} has the WRONG hash!".format(k))
             all_good = False
+    print("There are " + str(counter) + " correct files.")
     return all_good
 
 
