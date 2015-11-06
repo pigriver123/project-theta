@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import nibabel as nib
+from graph_functions import dvars, fd, mean, meanSig
 
 # need to create two loops, one for 1-9 and one for 10-16
 # because of folder naming difference.
@@ -20,7 +21,7 @@ for i in range(1,10):
         fd(fdfile, fdfigname)
         # mean path and name, call function
         niipath='ds005/sub00'+`i`+'/BOLD/task001_run00'+`j`
-        meandata=niipath+'/bold.nii'
+        meandata=niipath+'/bold.nii.gz'
         meanfigname=txtpath+'mean_sub'+`i`+'run'+`j`+'.png'
         meanSig(meandata, meanfigname)
 
@@ -39,7 +40,7 @@ for i in range(10,17):
         fd(fdfile, fdfigname)
         # mean path and name, call function
         niipath='ds005/sub0'+`i`+'/BOLD/task001_run00'+`j`
-        meandata=niipath+'/bold.nii'
+        meandata=niipath+'/bold.nii.gz'
         meanfigname=txtpath+'mean_sub'+`i`+'run'+`j`+'.png'
         meanSig(meandata, meanfigname)
 
