@@ -4,9 +4,8 @@ import hashlib
 import os
 import json
 
-
-os.chdir('..')
-d = json.load(open("data/hashList.txt"))
+os.chdir('../')
+d = json.load(open('data/hashList.txt'))
 
 
 def generate_file_md5(filename, blocksize=2**20):
