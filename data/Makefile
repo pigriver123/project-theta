@@ -1,5 +1,6 @@
 data:
 	wget http://openfmri.s3.amazonaws.com/tarballs/ds005_raw.tgz
+<<<<<<< HEAD
 
 validate:
 	python data.py
@@ -22,3 +23,9 @@ unzip:
 	done
 	done
 	
+=======
+	tar -xvzf ds005_raw.tgz
+
+validate:
+	python data.py	
+>>>>>>> a96098ccbb47c304f972e54f9161165806dc04f1
