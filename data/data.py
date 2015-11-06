@@ -5,7 +5,7 @@ import os
 import json
 
 
-d = json.load(open("data/hashList.txt"))
+d = json.load(open("./hashList.txt"))
 
 
 def generate_file_md5(filename, blocksize=2**20):
