@@ -1,3 +1,6 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import nibabel as nib
 
 # Graphing dvars: RMS signal derivative
 def dvars(file_name, fig_name):
