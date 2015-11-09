@@ -1,10 +1,7 @@
 from __future__ import print_function, division
 import os
-<<<<<<< HEAD
-=======
 import hashlib
 import json
->>>>>>> 20a3b16e852d9587c544d6b078c663717e0a8e6f
 
 
 def generate_file_md5(filename, blocksize=2**20):
@@ -34,10 +31,6 @@ def check_hashes(d):
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-    d = json.load(open("hashList.txt"))
-=======
     with open('hashList.txt', 'r') as hl:
         d = json.load(hl)
->>>>>>> 20a3b16e852d9587c544d6b078c663717e0a8e6f
     check_hashes(d)
