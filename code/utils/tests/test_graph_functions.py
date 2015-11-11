@@ -31,7 +31,7 @@ def test_loadtxt_dict():
     mydict = loadtxt_dict('temp.txt', 'mytxt')
     # True dictionary
     truedict = {'mytxt': np.arange(30.)}
-    assert all(mydict.values()[0] == truedict.values()[0])
+    assert_array_equal(list(mydict.values()), list(truedict.values()))
     assert_array_equal(mydict.keys(), truedict.keys())
 
 def test_vol_mean():
