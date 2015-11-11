@@ -11,8 +11,6 @@ Run with::
 # Loading modules.
 from __future__ import absolute_import, division, print_function
 import numpy as np
-import matplotlib.pyplot as plt
-import nibabel as nib
 import os
 import sys
 from numpy.testing import assert_almost_equal, assert_array_equal
@@ -26,7 +24,7 @@ from graph_functions import loadtxt_dict, loadnib_dict, vol_mean
 # Test txt:
 np.savetxt('temp.txt', range(30))
 # Test np array, dim = 4
-x1 = np.random.randn(100).reshape((2, 5, 2, 5))
+# x1 = np.random.randn(100).reshape((2, 5, 2, 5))
 x2 = np.arange(64).reshape((2, 4, 2, 4)) 
 def test_loadtxt_dict():
     # Using loadtxt_dict
