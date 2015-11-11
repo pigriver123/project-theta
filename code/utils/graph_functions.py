@@ -1,5 +1,6 @@
 """
-A collection of utility functions for diagnostics and graphing of FMRI data
+A collection of utility functions for outlier detection/graphing
+of fd, dvars, and meanSignal
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -104,8 +105,8 @@ def plot_meanSig(bdata_dict, saveit = False):
         Dictionary of bold data with the _dict: {name of output file: data}
         Saveit: boolean that indicates whether user wants to save the plot
     Output:
-        Plot of fd(framewise displacement) by timepoints
-        Boundline indicate potential points of outliers
+        Plot of mean signal  by timepoints
+        Fitted polynomial curve
     """
     data = bdata_dict.values()[0]
     x = list(range(data.shape[-1]))
