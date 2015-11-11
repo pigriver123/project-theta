@@ -5,7 +5,7 @@ induced artifacts) based on commonly used threshold of 0.2-0.5mm for FD and
 0.3-0.5% for DVARS. 0.5 was used for DVARS and 0.4 was used for FD.
 """
 import graph_functions as gf
-pathtodata = '../data'
+pathtodata = '../../data'
 # need to create two loops, one for 1-9 and one for 10-16
 # because of folder naming difference.
 
