@@ -68,6 +68,7 @@ After looking at the initial result from our linear regression model, we can dec
 
 
 \subsection{Issues with analyses and potential solutions}
+
 \subsubsection{Selecting specific regions to further explore correlation between neural and behavioral activity}
 \indent \indent Since we have no knowledge on the sections of brain that might experience large difference in activation, it is hard for us to pick the regions to deeper explore the correspondence between neural and behavioral loss aversion.
 
@@ -75,13 +76,20 @@ There are two potential ways to deal with this issue. The first one is to read m
 
 
 \subsubsection{Producing heat map}
+
 \indent \indent Another issue that we are facing during our project is finding the same region to plot for each participant. We see that each region of the brain has its own standard coordinates. However, without much knowledge of fMRI, we are not sure how to use these standard coordinates to locate the regions of the brain.
 
 From our understanding, each subject's brain is mapped onto a standard brain and we then use the coordinates for the standard brain to extract data from the areas we are interested in. However, currently, we don't have the skill to perform this step.
 
+\subsubsection{Inferences on Data}
+
+After fitting regression models on our BOLD and behavior data, we would try assessing and validating our models. In order to do this, we would calculate for the residual sum of squares for our model. We have to do three tests for the model. The first one is that we calculate the t-statistics and p-value for our beta coefficients to check whether our beta parameters are statistically significant at a significance level of 5\%. The second one is that we calculate the residuals of this linear model and check whether it follows a normal distribution. The third one is that we calculate the R-Squared value and the adjusted R-squared value to see whether the values are good for the linear regression model.
+
 \subsubsection{Further Research}
 
 We fit a linear regression model combining behavioral and BOLD data to examine the relationship of correlation between neural activity and behavioral response, we use another method which is different from what is mentioned in the paper. We add the behavioral response to the regression model on BOLD data as a predictor. We use the original 4-level response as stated below. \\ 
+
+Moreover, if the three tests we do for the linear regression model is bad. We can plot the independents and the dependents on plots to see whether they fit a model that is different from linear regression models. There may be another reason why the performance of linear regression models are bad which is that we simplify our model that we didn’t try a mixed model as the researchers in the paper did.
 
 \begin{tabular}{lllll}
 \hline
