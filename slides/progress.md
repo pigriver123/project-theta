@@ -14,10 +14,6 @@
 - 16 subjects
 - 4 conditions per subject
 
-## The Method
-
-- linear regression(?)
-
 # Initial work
 
 ## EDA
@@ -25,15 +21,81 @@
 - downloaded data
 - simple plots, summary statistics
 
-# Next steps
+# Plan
 
-## Preprocessing / Validation
+## Models and analysis
 
-- PCA
+- Behavioral analysis
 
-## Statistical Analysis
+Logistic regression model on the behavioral data:
 
-- linear model
+\begin{equation}
+logit(Y_{resp}) = \beta_0 + \beta_{loss} *X_{loss} + \beta_{gain} * X_{gain}  + \epsilon
+\end{equation}
+
+Calculate the the behavioral loss aversion:
+
+\begin{equation}
+\lambda = -\beta_{loss} / \beta_{gain}
+\end{equation}
+
+## Models and analysis (Continued)
+
+- Linear Regression on BOLD data
+
+For each voxel $i$, we fit a multiple linear model:
+
+\begin{equation}
+Y_{i} = \beta_{i, 0} + \beta_{i, loss} *X_{loss} + \beta_{i, gain} * X_{gain}  + \epsilon_i
+\end{equation}
+
+For each voxel, we calculate the neural loss aversion $\eta_i$:
+
+\begin{equation}
+\eta_i = (-\beta_{loss}) - \beta_{gain}
+\end{equation}
+
+## Models and analysis (Continued)
+
+- Whole brain analysis of correlation between neural activity and behavioral response across participants
+
+Examine the relationship between neural activity and behavioral using the following regression model:
+
+\begin{equation}
+\lambda = \alpha_0 + \alpha_1 * \eta + \epsilon
+\end{equation}
+
+## Models and analysis (Continued)
+
+- Inferences on Data
+
+1. Test the normal assumption of residuals in linear models
+
+2. Test of significance of coefficients
+
+3. Calculate the (adjusted) R squares.
+
+## Explanation on model simplification
+
+- Use of Data
+
+Leave out the regressor euclidean distance to indifference
+
+- Simplification of regression on BOLD data
+
+Perform simple linear models rather than mixed effect models
+
+## Issues with analyses and potential solutions
+
+- Selecting specific regions to further explore correlation between neural and behavioral activity
+
+1. Further research on brain 
+
+2. Look for regions with most significant neural loss aversion and regression coefficients
+
+- Producing heat map
+
+Need to map bold data onto standard brain
 
 # Our Process
 
