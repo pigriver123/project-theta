@@ -16,9 +16,10 @@ hrf_at_trs = hrf(tr_times)
 for i in range(1,10):
     for j in range(1,4):
         direct='ds005/sub00'+`i`+'/BOLD/task001_run00'+`j`+'/'
-        boldname = direct+'bold.nii'
+        boldname = direct+'bold.nii.gz'
         img=nib.load(boldname)
         data=img.get_data()
+        run = j
         gain, loss = getGainLoss(run, TR, n_vols)
         mea=calcMRSS(gain, loss)
         X, Y, beta=calcBeta(gain, loss)
@@ -28,9 +29,10 @@ for i in range(1,10):
 for i in range(10,17):
     for j in range(1,4):
         direct='ds0051/sub0'+`i`+'/BOLD/task001_run00'+`j`+'/'
-        boldname = direct+'bold.nii'
+        boldname = direct+'bold.nii.gz'
         img=nib.load(boldname)
         data=img.get_data()
+        run = j
         gain, loss = getGainLoss(run, TR, n_vols)
         mea=calcMRSS(gain, loss)
         X, Y, beta=calcBeta(gain, loss)
