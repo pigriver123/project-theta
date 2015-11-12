@@ -5,14 +5,25 @@
 # Background
 
 ## The Paper
+- Neural Basis of Loss Aversion in Decision-Making Under Risk
 
-- from OpenFMRI.org
-- ds005
+- Decisions influenced more by potential loss than by potential gain? 
+
+## Paper Purpose
+- Investigate whether potential loss/gain coded the same neurally
+
+- Brain activation results in different regions points towards yes
+ 
 
 ## The Data
 
-- 16 subjects
-- 4 conditions per subject
+- 16 subjects, 3 runs, 256 unique combinations total
+
+- Behavioral data, BOLD data
+
+## Initial Analysis
+
+-Basic preprocessing so far: identify dvars (RMS of signal derivative) and fd
 
 ## The Method
 
