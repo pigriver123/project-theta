@@ -57,6 +57,7 @@ def plot_dvars(dvars_dict, saveit=False):
     plt.title('DVARS (RMS Signal Derivative over brain mask)')
     if saveit:
         plt.savefig(dvars_dict.keys()[0])
+        plt.close()
 
 # Graphing fd: Framewise displacement
 def plot_fd(fd_dict, saveit=False):
@@ -81,6 +82,7 @@ def plot_fd(fd_dict, saveit=False):
     plt.title('Framewise Displacement')
     if saveit:
         plt.savefig(fd_dict.keys()[0])
+        plt.close()
 
 # Calculate mean
 def vol_mean(data):
@@ -127,5 +129,6 @@ def plot_meanSig(bdata_dict, saveit = False):
     plt.title('Mean signal (unfiltered)')
     if saveit:
         plt.savefig(bdata_dict.keys()[0])
+        plt.close()
 
 
