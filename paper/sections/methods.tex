@@ -2,6 +2,13 @@
 
 \subsection{Models and analysis}
 
+We use linear models to find the relationship between behavioral and nueral 
+loss aversion cross participants as well as how participants react to different 
+loss and gain level. Below we illustrate our model using simple multiple linear 
+regression form. We may implement a mixed-effects model treating partipants as
+a random effect. Moreover, we may use the robust regression to reduce the 
+influence of outliers.
+
 \subsubsection{Behavioral analysis}
 
 We fit a Logistic regression model on the behavioral data to examine how the 
@@ -75,6 +82,18 @@ following regression model:
 
 where the sample size is the number of participants(16).
 
+\subsubsection{Cross-validation}
+
+We fit linear models for each voxel for each participant. For each linear
+model, we do a k-fold cross-validation. Since the sample size for each linear 
+regression model range from 80-90, we choose to use 10 fold cross-validation,
+which means the original sample is randomly pertitioned into 10 equal sized 
+subsamples. \\
+In the behavioral analysis using Logistic regression, since the responce 
+variables are binary, we calculate the misclassification error rate to 
+summarize the fit. In the neural linear regression model using BOLD data, we 
+use the mean squared error to summarize the errors.
+
 \subsubsection{Inferences on Data}
 
 After fitting regression models on our BOLD and behavioral data, we would try 
@@ -86,7 +105,8 @@ significant at a significance level of 5\%. The second one is that we calculate
 the residuals of this linear model and check whether it follows a normal 
 distribution. The third one is that we calculate the R-Squared value and the 
 adjusted R-squared value to see whether the values are good for the linear 
-regression model.
+regression model.\\
+Bonferroni correction
 
 
 \subsection{Explanation on model simplification}
