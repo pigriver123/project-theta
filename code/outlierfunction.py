@@ -1,7 +1,7 @@
 
 # find outliers based on DVARS and FD
 
-def outlier(file_name, save_name, bound):
+def outlier(file_name, bound):
     # load data
     data = np.loadtxt(file_name)
     outlier = []
@@ -13,7 +13,4 @@ def outlier(file_name, save_name, bound):
             outlier.append(i)
     # find outlier indices
     outlier_indices = np.nonzero(outlier)
-    # write file to store outlier indices
-    f = open(save_name, 'w')
-    f.write(str(outlier_indices))
-    f.close()
+    return outlier_indices
