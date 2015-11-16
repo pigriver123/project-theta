@@ -11,7 +11,7 @@ def outlier(data, bound):
         indices of outliers
     '''
     outlier = []
-    # set outlier values to 0
+    # set nonoutlier values to 0, outliers to nonzero
     for i in data:
         if i <= bound:
             outlier.append(0)
