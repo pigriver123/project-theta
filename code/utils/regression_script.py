@@ -12,6 +12,7 @@ TR=2
 tr_times = np.arange(0, 30, TR)
 hrf_at_trs = hrf(tr_times)
 
+os.chdir("../../data")
 
 for i in range(1,10):
     for j in range(1,4):
@@ -28,7 +29,7 @@ for i in range(1,10):
 
 for i in range(10,17):
     for j in range(1,4):
-        direct='ds0051/sub0'+`i`+'/BOLD/task001_run00'+`j`+'/'
+        direct='ds005/sub0'+`i`+'/BOLD/task001_run00'+`j`+'/'
         boldname = direct+'bold.nii.gz'
         img=nib.load(boldname)
         data=img.get_data()

@@ -1,9 +1,15 @@
 
 # find outliers based on DVARS and FD
 
-def outlier(file_name, bound):
-    # load data
-    data = np.loadtxt(file_name)
+def outlier(data, bound):
+    '''
+    Input:
+        data: array of values
+        bound: threshold for outliers
+    
+    Output:
+        indices of outliers
+    '''
     outlier = []
     # set outlier values to 0
     for i in data:
