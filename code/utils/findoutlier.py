@@ -9,7 +9,7 @@ for i in range(1,10):
     for j in range(1,4):
         # set general path for reaching dvars and fd files
         # also path for saving files
-        txtpath='ds005/sub00'+`i`+'/BOLD/task001_run00'+`j`+'/QA/'
+        txtpath='../../data/ds005/sub00'+`i`+'/BOLD/task001_run00'+`j`+'/QA/'
         # dvars path and name, call function to get outliers
         dvarsfile=txtpath+'dvars.txt'
         dvars_data = np.loadtxt(dvarsfile)
@@ -29,7 +29,7 @@ for i in range(10,17):
     for j in range(1,4):
         # set general path for reaching dvars and fd files
         # also path for saving files
-        txtpath='ds005/sub0'+`i`+'/BOLD/task001_run00'+`j`+'/QA/'
+        txtpath='../../data/ds005/sub0'+`i`+'/BOLD/task001_run00'+`j`+'/QA/'
         # dvars path and name, call function to get outliers
         dvarsfile=txtpath+'dvars.txt'
         dvars_data = np.loadtxt(dvarsfile)
