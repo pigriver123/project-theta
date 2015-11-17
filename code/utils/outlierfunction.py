@@ -1,4 +1,6 @@
 
+import numpy as np
+
 # find outliers based on DVARS and FD
 
 def outlier(data, bound):
