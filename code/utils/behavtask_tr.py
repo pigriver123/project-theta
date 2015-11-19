@@ -55,7 +55,7 @@ def events2neural_extend(behav_task, tr, n_trs):
     behav_task[:, :2] = behav_task[:, :2] / tr
     # Neural time course from onset, duration, amplitude, gain, loss, PTval, 
     # respnum,respcat, RT for each event
-    time_course = np.zeros((n_trs, 7))
+    time_course = np.zeros((n_trs, 10))
     for on, dur, amp1, amp2, amp3, amp4, gain, loss, PTval, respnum,respcat, RT in behav_task:
         time_course[on:on + dur,0] = amp1
         time_course[on:on + dur,1] = amp2
