@@ -49,7 +49,7 @@ def events2neural_extend(behav_task, tr, n_trs):
     for reject)
     """
     # Check that the file is plausibly a task file
-    if behav_task.ndim != 2 or behav_task.shape[1] != 9:
+    if behav_task.ndim != 2 or behav_task.shape[1] != 12:
         raise ValueError("Is {0} really a task file?", behav_task)
     # Convert onset, duration seconds to TRs
     behav_task[:, :2] = behav_task[:, :2] / tr
