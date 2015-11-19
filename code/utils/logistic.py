@@ -18,9 +18,10 @@ for i in np.arange(1, nsub+1):
     behav = behav[np.logical_or.reduce([behav[:,5] == x for x in [0,1]])]
     X = zip(np.ones(len(behav)), behav[:, 1],behav[:, 2])
     y = behav[:, 5]
-    logreg = linear_model.LogisticRegression(C=1e5)
+    logreg = linear_model.LogisticRegression(C=1e5) 
+    # C=1e5 specifies a regularization strength
     logreg.fit(X, y)
-    # calculate the lambdas
+    # calculate the lambdas, the behavioral loss aversion measure
     beh_sub_lambda = np.log(-logreg.coef_[0, 2] / logreg.coef_[0, 1])
     beh_lambda = np.append(beh_lambda, beh_sub_lambda)
     # check the accuracy on the training set
@@ -28,7 +29,8 @@ for i in np.arange(1, nsub+1):
     beh_sub_score = logreg.score(X, y)
     beh_score = np.append(beh_score, beh_sub_score)
     # evaluate the model using 10-fold cross-validation
-    scores = cross_val_score(LogisticRegression(), X, y, scoring='accuracy', cv=10)
+    scores = cross_val_score(LogisticRegression(), X, y, 
+        scoring='accuracy', cv=10)
     val_score = np.append(val_score, scores.mean())
     
 
