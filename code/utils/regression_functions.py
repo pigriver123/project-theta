@@ -5,6 +5,7 @@ import os
 from scipy.stats import gamma
 import math
 import numpy.linalg as npl
+from behavtask_tr import events2neural_extend, merge_cond
 
 def hrf(times):
     """ 
@@ -17,11 +18,11 @@ def hrf(times):
     return values/np.max(values)*0.6
 
 
-def getGainLoss(run, TR, n_vols):
+def getGainLoss(run, TR, n_vols, hrf_at_trs):
     """ 
     function to get the convolved gain and loss values.
     the gain and loss values for every subject is the same for the same run.
-    Input: number of run, TR, v_vols
+    Input: number of run, TR, v_vols, hrf_at_trs (created with hrf function)
     Output: gain, loss values
     """
     behav_cond = 'ds005/sub001/behav/task001_run00'+`run`+'/behavdata.txt'
@@ -30,16 +31,15 @@ def getGainLoss(run, TR, n_vols):
     neural_prediction = events2neural_extend(parameters,TR, n_vols)
     convolved_gain = np.convolve(neural_prediction[:,1], hrf_at_trs)
     convolved_loss = np.convolve(neural_prediction[:,2], hrf_at_trs)
-    all_tr_times = np.arange(240) * TR
     n_to_remove = len(hrf_at_trs) - 1
     convolved_gain = convolved_gain[:-n_to_remove]
     convolved_loss = convolved_loss[:-n_to_remove]
     return convolved_gain, convolved_loss
 
-def calcBeta(gain, loss):
+def calcBeta(data, gain, loss):
     """ 
     function to calculate beta parameters.
-    Input: two list of gain, loss regressor values
+    Input: data from bold file, two list of gain, loss regressor values
     Output: X, Y, coefficient
     """
     design = np.ones((len(gain), 3))
@@ -51,10 +51,10 @@ def calcBeta(gain, loss):
     beta_hats = designp.dot(time_by_vox)
     return design, time_by_vox, beta_hats
 
-def calcMRSS(gain, loss):
+def calcMRSS(data, gain, loss):
     """ 
     function to calculate MRSS.
-    Input: two list of gain, loss regressor values
+    Input: data from bold file, two list of gain, loss regressor values
     Output: X, Y, coefficient
     """
     design = np.ones((len(gain), 3))

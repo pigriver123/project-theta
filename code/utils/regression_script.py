@@ -1,6 +1,6 @@
 import nibabel as nib
 import numpy as np
-from behavtask_tr.py import events2neural_extend, merge_cond
+from behavtask_tr import events2neural_extend, merge_cond
 from regression_functions import hrf, getGainLoss, calcBeta, calcMRSS
 import os
 from scipy.stats import gamma
@@ -21,9 +21,9 @@ for i in range(1,10):
         img=nib.load(boldname)
         data=img.get_data()
         run = j
-        gain, loss = getGainLoss(run, TR, n_vols)
-        mea=calcMRSS(gain, loss)
-        X, Y, beta=calcBeta(gain, loss)
+        gain, loss = getGainLoss(run, TR, n_vols, hrf_at_trs)
+        mea=calcMRSS(data, gain, loss)
+        X, Y, beta=calcBeta(data, gain, loss)
         write='ds005/sub00'+`i`+'/model/model001/onsets/task001_run00'+`j`+'.txt'
         np.savetxt(write, beta)
 
@@ -34,9 +34,9 @@ for i in range(10,17):
         img=nib.load(boldname)
         data=img.get_data()
         run = j
-        gain, loss = getGainLoss(run, TR, n_vols)
-        mea=calcMRSS(gain, loss)
-        X, Y, beta=calcBeta(gain, loss)
+        gain, loss = getGainLoss(run, TR, n_vols, hrt_at_trs)
+        mea=calcMRSS(data, gain, loss)
+        X, Y, beta=calcBeta(data, gain, loss)
         write='ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'.txt'
         np.savetxt(write, beta)
 
