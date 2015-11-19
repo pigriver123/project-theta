@@ -22,7 +22,7 @@ def merge_cond(behav_cond, task_cond1, task_cond2, task_cond3, task_cond4):
     task4 = np.loadtxt(task_cond4)
     # merge the txt files
     # Appended task
-    total_task = np.append(task1[:,1:].T, task2[:,-1],task3[:,-1], task4[:,-1]).reshape(5,-1).T
+    total_task = np.append(task1[:,1:].T, [task2[:,-1],task3[:,-1], task4[:,-1]]).reshape(5,-1).T
     behav_task = np.insert(behav, [1],  total_task, axis = 1)
     return behav_task
 
