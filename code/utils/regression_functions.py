@@ -18,7 +18,7 @@ def hrf(times):
     return values/np.max(values)*0.6
 
 
-def getGainLoss(run, TR, n_vols, hrf_at_trs, neural_prediction):
+def getGainLoss(TR, n_vols, hrf_at_trs, neural_prediction):
     """ 
     function to get the convolved gain and loss values.
     the gain and loss values for every subject is the same for the same run.
