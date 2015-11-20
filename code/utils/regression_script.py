@@ -11,7 +11,7 @@ import json
 n_vols=240
 TR=2
 tr_times = np.arange(0, 30, TR)
-hrf_at_trs = hrf(tr_times)
+hrf_at_trs = hrf(tr_times))
 
 os.chdir("../../data")
 
