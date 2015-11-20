@@ -42,9 +42,9 @@ for i in range(1,10):
         data_full = np.concatenate((data_full,data),axis=3)
         gain_full = np.concatenate((gain_full,gain),axis=0)
         loss_full = np.concatenate((loss_full,loss),axis=0)
-    mea=calcMRSS(data, gain, loss)
-    X, Y, beta=calcBeta(data, gain, loss)
-    write='ds005/sub00'+`i`+'/model/model001/onsets/task001_run00'+`j`+'.txt'
+    mea=calcMRSS(data_full, gain_full, loss_full)
+    X, Y, beta=calcBeta(data_full, gain_full, loss_full)
+    write='ds005/sub00'+`i`+'/model/model001/onsets/sub'+`i`+'_beta.txt'
     np.savetxt(write, beta)
 
 for i in range(10,17):
@@ -71,8 +71,8 @@ for i in range(10,17):
         data_full = np.concatenate((data_full,data),axis=3)
         gain_full = np.concatenate((gain_full,gain),axis=0)
         loss_full = np.concatenate((loss_full,loss),axis=0)
-    mea=calcMRSS(data, gain, loss)
-    X, Y, beta=calcBeta(data, gain, loss)
-    write='ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'.txt'
+    mea=calcMRSS(data_full, gain_full, loss_full)
+    X, Y, beta=calcBeta(data_full, gain_full, loss_full)
+    write='ds005/sub0'+`i`+'/model/model001/onsets/sub'+`i`+'_beta.txt'
     np.savetxt(write, beta)
 
