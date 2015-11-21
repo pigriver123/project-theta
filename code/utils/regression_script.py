@@ -11,12 +11,12 @@ import json
 n_vols=240
 TR=2
 tr_times = np.arange(0, 30, TR)
-hrf_at_trs = hrf(tr_times))
+hrf_at_trs = hrf(tr_times)
 
 os.chdir("../../data")
 
 dvars_out = json.load(open("dvarsOutliers.txt"))
-fd_out = json.load(open("fdOutliers.txt")
+fd_out = json.load(open("fdOutliers.txt"))
 
 for i in range(1,10):
     # first three dimension for data shape is 64, 64, 34.
