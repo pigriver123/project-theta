@@ -2,11 +2,21 @@
 Script that plots framewise displacement(fd),  RMS signal derivative (DVARS), 
 and meanSignal per subject per run and indicates potential outliers (motion-
 induced artifacts) based on commonly used threshold of 0.2-0.5mm for FD and 
-0.3-0.5% for DVARS. 0.5 was used for DVARS and 0.4 was used for FD.
+0.3-0.5% for DVARS. 0.5 was used for DVARS and 0.5 was used for FD.
 """
+import numpy as np
+import nibabel as nib
+import matplotlib.pyplot as plt
 import graph_functions as gf
+import json
+
 pathtodata = '../../data/'
 pathtofig = '../../paper/figures/'
+
+# load outlier files
+dvars_out = json.load(open(pathtodata+"ds005/dvarsOutliers.txt"))
+fd_out = json.load(open(pathtodata+"ds005/fdOutliers.txt"))
+
 # need to create two loops, one for 1-9 and one for 10-16
 # because of folder naming difference.
 
@@ -19,12 +29,14 @@ for i in range(1,10):
         dvarsfile=txtpath+'dvars.txt'
         dvarsfigname=pathtofig+'dvars_sub'+`i`+'run'+`j`+'.png'
         dvars_dict = gf.loadtxt_dict(dvarsfile, dvarsfigname)
-        gf.plot_dvars(dvars_dict, saveit=True)
+        dvars_outliers = dvars_out['sub'+`i`+'run'+`j`]
+        gf.plot_dvars(dvars_dict, dvars_outliers, saveit=True)
         # fd path and name, call function
         fdfile=txtpath+'fd.txt'
         fdfigname=pathtofig+'fd_sub'+`i`+'run'+`j`+'.png'
         fd_dict = gf.loadtxt_dict(fdfile, fdfigname)
-        gf.plot_fd(fd_dict, saveit=True)
+        fd_outliers = fd_out['sub'+`i`+'run'+`j`]
+        gf.plot_fd(fd_dict, fd_outliers, saveit=True)
         # mean path and name, call function
         niipath=pathtodata+'ds005/sub00'+`i`+'/BOLD/task001_run00'+`j`
         meandata=niipath+'/bold.nii.gz'
@@ -41,12 +53,14 @@ for i in range(10,17):
         dvarsfile=txtpath+'dvars.txt'
         dvarsfigname=pathtofig+'dvars_sub'+`i`+'run'+`j`+'.png'
         dvars_dict = gf.loadtxt_dict(dvarsfile, dvarsfigname)
-        gf.plot_dvars(dvars_dict, saveit=True)
+        dvars_outliers = dvars_out['sub'+`i`+'run'+`j`]
+        gf.plot_dvars(dvars_dict, dvars_outliers, saveit=True)
         # fd path and name, call function
         fdfile=txtpath+'fd.txt'
         fdfigname=pathtofig+'fd_sub'+`i`+'run'+`j`+'.png'
         fd_dict = gf.loadtxt_dict(fdfile, fdfigname)
-        gf.plot_fd(fd_dict, saveit=True)
+        fd_outliers = fd_out['sub'+`i`+'run'+`j`]
+        gf.plot_fd(fd_dict, fd_outliers, saveit=True)
         # mean path and name, call function
         niipath=pathtodata+'ds005/sub0'+`i`+'/BOLD/task001_run00'+`j`
         meandata=niipath+'/bold.nii.gz'
