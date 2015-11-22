@@ -35,22 +35,27 @@ def loadnib_dict(file_name, fig_name):
     return dict_out
 
 # Graphing dvars: RMS signal derivative    
-def plot_dvars(dvars_dict, saveit=False):
+def plot_dvars(dvars_dict, dvars_outliers, saveit=False):
     """
     Input:
         Dictionary of dvars_dict: {name of output file: data}
+        dvars_outliers: A list of outliers
         Saveit: boolean that indicates whether user wants to save the plot
     Output:
         Plot of dvars by timepoints
         Boundlines indicate potential points of outliers
     """
-    # boundary should be set to 0.2-0.5
+    # boundary should be set to 0.3-0.5
     bound = np.array([0.5]*(240))
+    # making x axis values for outliers
+    x = np.arange(len(dvars_dict.values()[0]))
+    # plotting
     fig = plt.figure(figsize=(10,4))
     ax = fig.add_subplot(111)
     plt.xlim(0,240)
     # plt.ylim(-0.05, 1.0)
     ax.plot(dvars_dict.values()[0])
+    ax.scatter(x[dvars_outliers], dvars_dict.values()[0][dvars_outliers], marker='o', color='r')
     ax.plot(bound, 'g--')
     plt.ylabel('DVARS')
     plt.xlabel('timepoints')
@@ -60,22 +65,27 @@ def plot_dvars(dvars_dict, saveit=False):
         plt.close()
 
 # Graphing fd: Framewise displacement
-def plot_fd(fd_dict, saveit=False):
+def plot_fd(fd_dict, fd_outliers, saveit=False):
     """
     Input:
         Dictionary of fd_dict: {name of output file: data}
+        fd_outliers: A list of fd outliers
         Saveit: boolean that indicates whether user wants to save the plot
     Output:
         Plot of fd(framewise displacement) by timepoints
         Boundline indicate potential points of outliers
     """
     # boundary should be set to 0.2-0.5
-    bound = np.array([0.4]*(240))
+    bound = np.array([0.5]*(240))
+    # making x axis values for outliers
+    x = np.arange(len(fd_dict.values()[0]))
+    # plotting
     fig = plt.figure(figsize=(10,4))
     ax = fig.add_subplot(111)
     plt.xlim(0,240)    
-    plt.ylim(0, 0.6)
+    # plt.ylim(0, 0.6)
     ax.plot(fd_dict.values()[0])
+    ax.scatter(x[fd_outliers], fd_dict.values()[0][fd_outliers], marker='o', color='r')
     ax.plot(bound, 'g--')
     plt.ylabel('FD')
     plt.xlabel('timepoints')
