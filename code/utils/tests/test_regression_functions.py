@@ -26,7 +26,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Path to the first subject, first run, this is used as the test data for some 
 # functions below
-pathtofirst = '../../../data/ds005/'
+pathtofirst = 'data/ds005/'
 
 # Load graph_functions:
 from regression_functions import hrf, getGainLoss, calcBeta, calcMRSS, deleteOutliers
