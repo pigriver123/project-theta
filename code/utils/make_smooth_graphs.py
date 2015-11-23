@@ -1,4 +1,4 @@
-import numpy as np
+#import numpy as np
 import matplotlib.pyplot as plt
 import nibabel as nib
 import smooth_gaussian
@@ -22,7 +22,7 @@ f, (ax1, ax2, ax3, ax4) = plt.subplots(4, sharex = True, sharey = True)
 ax1.imshow(data[:, :, 16, 50], cmap = 'gray')
 ax1.set_title('Original')
 ax2.imshow(spatial2, cmap = 'gray')
-ax2.set_title('fwhm = 5 mm')
+ax2.set_title('fwhm = 5 mm, spatial')
 ax3.imshow(spatial3, cmap = 'gray')
 ax3.set_title('fwhm = 4 mm')
 ax4.imshow(spatial4, cmap = 'gray')

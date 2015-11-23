@@ -1,16 +1,16 @@
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 from scipy.ndimage.filters import gaussian_filter, gaussian_filter1d
 
 def fwhm2sigma(fwhm):
     """
-    Converts FWHM (full width at half measure) of Gaussian kernel to sigma
+    Converts FWHM (full width at half maximum) of Gaussian kernel to sigma
     (standard deviation) of the kernel, to be used as input in smoothing 
     functions
 
     Parameters
     ----------
-    fwhm : Full width at half measure, in millimeters. Ex: If expected signals
+    fwhm : Full width at half maximum, in millimeters. Ex: If expected signals
     of image is Gaussian with FWHM of 4 mm, fwhm = 4
 
     Returns
@@ -57,7 +57,9 @@ def smooth_spatial(data, time, fwhm = 5):
     Smoothed volume 
     """
     sigma = fwhm2sigma(fwhm)
-    return(gaussian_filter(data[..., time], sigma))
+    s = (gaussian_filter(data, [sigma, sigma, sigma, 0]))
+    return(s[..., time])
+    #return(gaussian_filter(data[..., time], sigma))
 
 
 

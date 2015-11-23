@@ -29,7 +29,8 @@ def check_hashes(d):
     print("There are " + str(counter) + " correct files.")
     return all_good
 
-def make_hash_list(directory, title):
+
+#def make_hash_list(directory, title):
     """
     Returns a list of hashes for each path in directory
 
@@ -45,6 +46,8 @@ def make_hash_list(directory, title):
     ex: make_hash_list("ds005", "temp") makes hashlist for all of ds005
     including subdirectories
     """
+    
+"""
     file_paths = []
     for path, subdirs, files in os.walk(directory):
         for name in files:
@@ -53,6 +56,7 @@ def make_hash_list(directory, title):
     with open(title, 'w') as outfile:
         json.dump(dictionary, outfile)
     return dictionary
+"""
 
 if __name__ == "__main__":
     with open('hashList.txt', 'r') as hl:
