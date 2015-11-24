@@ -41,8 +41,8 @@ def deleteOutliers(data, gain, loss, sub, run, dvars_out, fd_out):
     output: data from bold, gain, loss variable 
             (all without outliers and merged together for each sub)
     """
-    dvars_outliers = dvars_out['sub'+`sub`+'run'+`run`]
-    fd_outliers = fd_out['sub'+`sub`+'run'+`run`]
+    dvars_outliers = dvars_out['sub'+ str(sub) +'run'+ str(run)]
+    fd_outliers = fd_out['sub'+ str(sub) +'run'+ str(run)]
     outliers = list(set(dvars_outliers+fd_outliers))
     nonoutliers = [out for out in range(data.shape[3]) if out not in outliers]
     data = data[:,:,:, nonoutliers]
