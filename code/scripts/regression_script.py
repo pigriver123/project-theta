@@ -1,12 +1,16 @@
 import nibabel as nib
 import numpy as np
+import os
+import json
+import sys
+
+# Path to function
+pathtofunction = '../utils'
+# Append path to sys
+sys.path.append(pathtofunction)
+
 from behavtask_tr import events2neural_extend, merge_cond
 from regression_functions import hrf, getGainLoss, calcBeta, calcMRSS, deleteOutliers
-import os
-from scipy.stats import gamma
-import math
-import numpy.linalg as npl
-import json
 
 n_vols=240
 TR=2
@@ -66,7 +70,7 @@ for i in range(10,17):
         task_cond4 = 'ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
         parameters = merge_cond(behav_cond, task_cond1, task_cond2, task_cond3, task_cond4)
         neural_prediction = events2neural_extend(parameters,TR, n_vols)
-        gain, loss = getGainLoss(TR, n_vols, hrt_at_trs, neural_prediction)
+        gain, loss = getGainLoss(TR, n_vols, hrf_at_trs, neural_prediction)
         data, gain, loss = deleteOutliers(data, gain, loss, i, j, dvars_out, fd_out)
         data_full = np.concatenate((data_full,data),axis=3)
         gain_full = np.concatenate((gain_full,gain),axis=0)
