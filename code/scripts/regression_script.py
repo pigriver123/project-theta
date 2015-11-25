@@ -1,12 +1,16 @@
 import nibabel as nib
 import numpy as np
+import os
+import json
+import sys
+
+# Path to function
+pathtofunction = '../utils'
+# Append path to sys
+sys.path.append(pathtofunction)
+
 from behavtask_tr import events2neural_extend, merge_cond
 from regression_functions import hrf, getRegressor, calcBeta, calcMRSS, deleteOutliers
-import os
-from scipy.stats import gamma
-import math
-import numpy.linalg as npl
-import json
 
 n_vols=240
 TR=2
@@ -48,6 +52,6 @@ for i in range(1,17):
         quad_full = np.concatenate((quad_full,quad_dr),axis=0)
     mea=calcMRSS(data_full, gain_full, loss_full, linear_full, quad_full)
     X, Y, beta=calcBeta(data_full, gain_full, loss_full, linear_full, quad_full)
-    write='ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/sub'+`i`+'_beta.txt'
-    np.savetxt(write, beta)
+    # write='ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/sub'+`i`+'_beta.txt'
+    # np.savetxt(write, beta)
 

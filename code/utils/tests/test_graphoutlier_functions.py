@@ -13,13 +13,13 @@ from __future__ import absolute_import, division, print_function
 import numpy as np
 import os
 import sys
-from numpy.testing import assert_almost_equal, assert_array_equal
+from numpy.testing import assert_array_equal
 
 # Set path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Load graph_functions:
-from graph_functions import loadtxt_dict, loadnib_dict, vol_mean
+from graphoutlier_functions import loadtxt_dict, vol_mean
 
 # Test txt:
 np.savetxt('temp.txt', range(30))
