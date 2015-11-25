@@ -7,8 +7,7 @@ Test regression_function module the following functions:
     calcMRSS
 
 Run with::
-    nosetests test_regression_functions.py
-    Note: Run from project-theta directory with 'make test'
+    **Run from project-theta directory with 'make test'
 
 """
 # Loading modules.
@@ -24,7 +23,9 @@ from numpy.testing import assert_almost_equal, assert_allclose
 # Set path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# Path to the first subject, first run, this is used as the test data for some 
+# Path to the first subject, first run, this is used as the test data for 
+# getGainLoss:
+pathtotest = 'code/utils/tests/' 
 
 # Load graph_functions:
 from regression_functions import hrf, getGainLoss, calcBeta, calcMRSS, deleteOutliers
@@ -54,11 +55,11 @@ def test_getGainLoss():
     n_vols = 240
     tr_times = np.arange(0, 30, TR)
     hrf_signal = hrf(tr_times)
-    behav_cond = 'test_behavdata.txt'
-    task_cond1 = 'test_cond001.txt'
-    task_cond2 = 'test_cond002.txt'
-    task_cond3 = 'test_cond003.txt'
-    task_cond4 = 'test_cond004.txt'
+    behav_cond = pathtotest + 'test_behavdata.txt'
+    task_cond1 = pathtotest + 'test_cond001.txt'
+    task_cond2 = pathtotest + 'test_cond002.txt'
+    task_cond3 = pathtotest + 'test_cond003.txt'
+    task_cond4 = pathtotest + 'test_cond004.txt'
     parameters = merge_cond(behav_cond, task_cond1, task_cond2, task_cond3, task_cond4)
     # get neural_signal
     neural_signal = events2neural_extend(parameters,TR, n_vols)
