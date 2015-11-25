@@ -1,6 +1,10 @@
 import numpy as np
-from outlierfunction import outlier
 import json
+import sys
+pathtofunction = '../utils'
+# Append the sys path
+sys.path.append(pathtofunction)
+from outlierfunction import outlier
 
 dvars_out = {}
 fd_out = {}
