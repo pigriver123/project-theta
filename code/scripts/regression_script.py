@@ -36,9 +36,9 @@ for i in range(1,10):
         run = j
         behav_cond = 'ds005/sub00'+`i`+'/behav/task001_run00'+`j`+'/behavdata.txt'
         task_cond1 = 'ds005/sub00'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
-        task_cond2 = 'ds005/sub00'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
-        task_cond3 = 'ds005/sub00'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
-        task_cond4 = 'ds005/sub00'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
+        task_cond2 = 'ds005/sub00'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond002.txt'
+        task_cond3 = 'ds005/sub00'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond003.txt'
+        task_cond4 = 'ds005/sub00'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond004.txt'
         parameters = merge_cond(behav_cond, task_cond1, task_cond2, task_cond3, task_cond4)
         neural_prediction = events2neural_extend(parameters,TR, n_vols)
         gain, loss = getGainLoss(TR, n_vols, hrf_at_trs, neural_prediction)
@@ -65,9 +65,9 @@ for i in range(10,17):
         run = j
         behav_cond = 'ds005/sub0'+`i`+'/behav/task001_run00'+`j`+'/behavdata.txt'
         task_cond1 = 'ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
-        task_cond2 = 'ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
-        task_cond3 = 'ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
-        task_cond4 = 'ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
+        task_cond2 = 'ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond002.txt'
+        task_cond3 = 'ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond003.txt'
+        task_cond4 = 'ds005/sub0'+`i`+'/model/model001/onsets/task001_run00'+`j`+'/cond004.txt'
         parameters = merge_cond(behav_cond, task_cond1, task_cond2, task_cond3, task_cond4)
         neural_prediction = events2neural_extend(parameters,TR, n_vols)
         gain, loss = getGainLoss(TR, n_vols, hrf_at_trs, neural_prediction)
