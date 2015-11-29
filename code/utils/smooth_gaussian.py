@@ -39,7 +39,7 @@ def smooth_time_series(voxel_over_time, fwhm):
     sigma = fwhm2sigma(fwhm)
     return gaussian_filter1d(voxel_over_time, sigma)
 
-def smooth_spatial(data, time, fwhm = 5):
+def smooth_spatial(data, fwhm = 5):
     """
     Smooths a slice of the volume. Improves signal to noise ratio aka 
     sensitivity and makes error dist. more normal. However can reduce spatial 
@@ -50,7 +50,6 @@ def smooth_spatial(data, time, fwhm = 5):
     data = BOLD signal data
     fwhm = expected fwhm in millimeters of Gaussian kernel. I believe the 
         supplement specifies a 5 mm fwhm on page 3
-    time = Time aka which scan volume wanted 
 
     Returns
     -------
@@ -58,7 +57,8 @@ def smooth_spatial(data, time, fwhm = 5):
     """
     sigma = fwhm2sigma(fwhm)
     s = (gaussian_filter(data, [sigma, sigma, sigma, 0]))
-    return(s[..., time])
+    return(s)
+    #return(s[..., time])
     #return(gaussian_filter(data[..., time], sigma))
 
 

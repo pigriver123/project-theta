@@ -62,6 +62,6 @@ if __name__ == "__main__":
     with open('hashList.txt', 'r') as hl:
         d = json.load(hl)
     check_hashes(d)
-    with open('new_hashList.txt', 'r') as hl2:
-        data = json.load(hl2)
-    check_hashes(data)
+    #with open('new_hashList.txt', 'r') as hl2:
+    #    data = json.load(hl2)
+    #check_hashes(data)
