@@ -67,6 +67,9 @@ def calcBeta(data, gain, loss, linear_dr, quad_dr):
     design[:, 2] = linear_dr
     design[:, 3] = quad_dr
     designp = npl.pinv(design)
+    mean_data = np.mean(data, axis=-1)
+    mask = mean_data > 400
+    data[~mask]=0
     T = data.shape[-1]
     time_by_vox = np.reshape(data, (-1, T)).T
     beta_hats = designp.dot(time_by_vox)
