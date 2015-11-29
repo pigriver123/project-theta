@@ -18,22 +18,25 @@ def hrf(times):
     return values/np.max(values)*0.6
 
 
-def getGainLoss(TR, n_vols, hrf_at_trs, neural_prediction):
+def getRegressor(TR, n_vols, hrf_at_trs, neural_prediction):
     """ 
-    function to get the convolved gain and loss values.
-    the gain and loss values for every subject is the same for the same run.
+    function to get all regressors for model.
+    Regressors include  convolved gain and loss, linear and quadratic drift
     Input: number of run, TR, v_vols, hrf_at_trs (created with hrf function)
            neural_prediction is the combined behavior and task condition data
-    Output: gain, loss values
+    Output: gain, loss, linear drift quadratic drift
     """
     convolved_gain = np.convolve(neural_prediction[:,1], hrf_at_trs)
     convolved_loss = np.convolve(neural_prediction[:,2], hrf_at_trs)
     n_to_remove = len(hrf_at_trs) - 1
     convolved_gain = convolved_gain[:-n_to_remove]
     convolved_loss = convolved_loss[:-n_to_remove]
-    return convolved_gain, convolved_loss
+    linear_dr = np.linspace(-1, 1, n_vols)
+    quadratic_dr = linear_dr ** 2
+    quadratic_dr -= np.mean(quadratic_dr)
+    return convolved_gain, convolved_loss, linear_dr, quadratic_dr
 
-def deleteOutliers(data, gain, loss, sub, run, dvars_out, fd_out):
+def deleteOutliers(data, gain, loss, linear_dr, quad_dr, sub, run, dvars_out, fd_out):
     """
     function that deleter outliers in each run and merge 3 run into one dataset
     Input: data, gain, loss (got from the getGainLoss function), sub and run
@@ -48,30 +51,34 @@ def deleteOutliers(data, gain, loss, sub, run, dvars_out, fd_out):
     data = data[:,:,:, nonoutliers]
     gain = gain[nonoutliers]
     loss = loss[nonoutliers]
-    return data, gain, loss
+    linear_dr = linear_dr[nonoutliers]
+    quad_dr = quad_dr[nonoutliers]
+    return data, gain, loss, linear_dr, quad_dr
 
-def calcBeta(data, gain, loss):
+def calcBeta(data, gain, loss, linear_dr, quad_dr):
     """ 
     function to calculate beta parameters.
     Input: data from bold file, two list of gain, loss regressor values
     Output: X, Y, coefficient
     """
-    design = np.ones((len(gain), 3))
+    design = np.ones((len(gain), 5))
     design[:, 0] = gain
     design[:, 1] = loss
+    design[:, 2] = linear_dr
+    design[:, 3] = quad_dr
     designp = npl.pinv(design)
     T = data.shape[-1]
     time_by_vox = np.reshape(data, (-1, T)).T
     beta_hats = designp.dot(time_by_vox)
     return design, time_by_vox, beta_hats
 
-def calcMRSS(data, gain, loss):
+def calcMRSS(data, gain, loss, linear_dr, quad_dr):
     """ 
     function to calculate MRSS.
     Input: data from bold file, two list of gain, loss regressor values
     Output: X, Y, coefficient
     """
-    design, time_by_vox, beta_hats = calcBeta(data, gain, loss)
+    design, time_by_vox, beta_hats = calcBeta(data, gain, loss, linear_dr, quad_dr)
     T = data.shape[-1]
     residuals = time_by_vox - design.dot(beta_hats)
     df = T - npl.matrix_rank(design)
