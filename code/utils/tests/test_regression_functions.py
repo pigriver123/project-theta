@@ -1,14 +1,13 @@
 """
 Test regression_function module the following functions:
     hrf
-    getGainLoss
+    getRegressor
     deleteOutliers
     calcBeta
     calcMRSS
 
 Run with::
-    nosetests test_regression_functions.py
-    Note: Run from project-theta directory with 'make test'
+    **Run from project-theta directory with 'make test'
 
 """
 # Loading modules.
@@ -24,12 +23,12 @@ from numpy.testing import assert_almost_equal, assert_allclose
 # Set path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# Path to the first subject, first run, this is used as the test data for some 
-# functions below
-pathtofirst = 'data/ds005/'
+# Path to the first subject, first run, this is used as the test data for 
+# getGainLoss:
+pathtotest = 'code/utils/tests/' 
 
 # Load graph_functions:
-from regression_functions import hrf, getGainLoss, calcBeta, calcMRSS, deleteOutliers
+from regression_functions import hrf, getRegressor, calcBeta, calcMRSS, deleteOutliers
 from behavtask_tr import merge_cond, events2neural_extend
 
 def test_hrf():
@@ -48,7 +47,7 @@ def test_hrf():
     # assert
     assert_almost_equal(test_values, my_values)
 
-def test_getGainLoss():
+def test_getRegressor():
     # Set up and load in subject 1 run 1
     # This is the convolution method described, in detail on:
     # http://practical-neuroimaging.github.io/on_convolution.html
@@ -56,11 +55,11 @@ def test_getGainLoss():
     n_vols = 240
     tr_times = np.arange(0, 30, TR)
     hrf_signal = hrf(tr_times)
-    behav_cond = pathtofirst + 'sub001/behav/task001_run001/behavdata.txt'
-    task_cond1 = pathtofirst+ 'sub001/model/model001/onsets/task001_run001/cond001.txt'
-    task_cond2 = pathtofirst+ 'sub001/model/model001/onsets/task001_run001/cond002.txt'
-    task_cond3 = pathtofirst+ 'sub001/model/model001/onsets/task001_run001/cond003.txt'
-    task_cond4 = pathtofirst+ 'sub001/model/model001/onsets/task001_run001/cond004.txt'
+    behav_cond = pathtotest + 'test_behavdata.txt'
+    task_cond1 = pathtotest + 'test_cond001.txt'
+    task_cond2 = pathtotest + 'test_cond002.txt'
+    task_cond3 = pathtotest + 'test_cond003.txt'
+    task_cond4 = pathtotest + 'test_cond004.txt'
     parameters = merge_cond(behav_cond, task_cond1, task_cond2, task_cond3, task_cond4)
     # get neural_signal
     neural_signal = events2neural_extend(parameters,TR, n_vols)
@@ -85,20 +84,28 @@ def test_getGainLoss():
     n_to_remove = M-1
     convolved_gain = convolved_gain[:-n_to_remove]
     convolved_loss = convolved_loss[:-n_to_remove]
-    
+    linear_dr = np.linspace(-1, 1, n_vols)
+    quadratic_dr = linear_dr ** 2
+    quadratic_dr -= np.mean(quadratic_dr)
+     
     #--------------------------------------------------------------------------#
     # my function 
-    myconv_gain, myconv_loss = getGainLoss(TR, n_vols, hrf_signal, neural_signal)
+    myconv_gain, myconv_loss, my_lin, my_quad = getRegressor(TR, n_vols, hrf_signal, neural_signal)
     #--------------------------------------------------------------------------#
     # assert checks
     assert (max(abs(convolved_gain-myconv_gain) < .0001))
     assert (max(abs(convolved_loss-myconv_loss) < .0001))
+    assert (max(abs(quadratic_dr-my_quad) < .0001))
+    assert (max(abs(linear_dr-my_lin) < .0001))
 
 def test_deleteOutliers():
     # Create some test arrays/dictionaries
     t_data = np.arange(8).reshape((1,1,1,8))
     t_gain = np.arange(8)+2
     t_loss = np.arange(8)+4
+    t_lin = np.linspace(-1,1, 8)
+    t_quad = t_lin ** 2
+    t_quad -= np.mean(t_quad)
     dvars_out= {'sub1run1': [2,3],'sub2run2':[1,2]}
     fd_out= {'sub1run1': [1,2,3], 'sub2run2':[4,5,6]}
     # sub 1 run 1
@@ -109,15 +116,19 @@ def test_deleteOutliers():
     t_data1= t_data[:,:,:,t_nonoutliers1]
     t_gain1 = t_gain[t_nonoutliers1]
     t_loss1 = t_loss[t_nonoutliers1]
+    t_lin1 = t_lin[t_nonoutliers1]
+    t_quad1 = t_quad[t_nonoutliers1]
     #--------------------------------------------------------------------------#
     # my function
-    my_data1, my_gain1, my_loss1 = deleteOutliers(t_data, t_gain, t_loss, sub1, run1, dvars_out, fd_out)
+    my_data1, my_gain1, my_loss1, my_lin1, my_quad1 = deleteOutliers(t_data, t_gain, t_loss, t_lin, t_quad, sub1, run1, dvars_out, fd_out)
     #--------------------------------------------------------------------------#
     # asssert 1
     assert_allclose(my_data1, t_data1)
     assert_allclose(my_gain1, t_gain1)
     assert_allclose(my_loss1, t_loss1)
-    
+    assert_allclose(my_lin1, t_lin1)
+    assert_allclose(my_quad1, t_quad1)
+
     #--------------------------------------------------------------------------#
     # sub 2 run 2
     sub2 = 2
@@ -127,22 +138,31 @@ def test_deleteOutliers():
     t_data2= t_data[:,:,:,t_nonoutliers2]
     t_gain2 = t_gain[t_nonoutliers2]
     t_loss2 = t_loss[t_nonoutliers2]
+    t_lin2 = t_lin[t_nonoutliers2] 
+    t_quad2 = t_quad[t_nonoutliers2]
     #--------------------------------------------------------------------------#
     # my function
-    my_data2, my_gain2, my_loss2 = deleteOutliers(t_data, t_gain, t_loss, sub2, run2, dvars_out, fd_out)
+    my_data2, my_gain2, my_loss2 , my_lin2, my_quad2 = deleteOutliers(t_data, t_gain, t_loss,t_lin, t_quad, sub2, run2, dvars_out, fd_out)
     #--------------------------------------------------------------------------#
     # assert 2
     assert_allclose(my_data2, t_data2)
     assert_allclose(my_gain2, t_gain2)
     assert_allclose(my_loss2, t_loss2)
+    assert_allclose(my_lin2, t_lin2)
+    assert_allclose(my_quad2, t_quad2)
+
 
 def test_calcBeta():
     # X, Y are constructed like the way in calcBeta(data, gain, loss).
     # Create a simple linear model based on Y = 2X1 + 5X2 + e
-    X = np.ones((5, 2))
-    X[:, 0] = np.array([1,2,3,4,5])
-    X[:, 1] = np.array([2,4,6,8,10])
-    Y = X[:,0]*2 + X[:,1]*5 + 1
+    X = np.ones((6, 4))
+    X[:, 0] = np.array([1,2,3,4,5,6])
+    X[:, 1] = np.array([2,4,6,8,10,12])
+    X[:, 2] = np.linspace(-1,1,6)
+    t_quad = X[:,2] ** 2
+    t_quad -= np.mean(t_quad)
+    X[:, 3] = t_quad
+    Y = X[:,0] + X[:,1]*2 + X[:,2] + X[:,3] + 1
     # Create linear regression object
     regr = linear_model.LinearRegression()
     # Train the model using the training sets
@@ -150,33 +170,34 @@ def test_calcBeta():
     test_beta = np.append(regr.coef_ , regr.intercept_)
     #--------------------------------------------------------------------------#
     # my function
-    design, t_by_v, my_beta = calcBeta(Y, X[:,0], X[:,1])
+    design, t_by_v, my_beta = calcBeta(Y, X[:,0], X[:,1], X[:,2], X[:,3])
     #--------------------------------------------------------------------------#
-    # assert betas
-    assert_allclose(my_beta.ravel(), test_beta)
+    # assert betas: the threshold here is a bit high since 2 methods of 
+    # implementation for a small sample size gives some variation in betas
+    assert all(my_beta.ravel()-test_beta < 0.1)
     # assert time_by_voxel (predictions)
     assert_allclose(t_by_v.ravel(), regr.predict(X))
     # assert design
-    assert_allclose(X, design[:,:2])
+    assert_allclose(X, design[:,:4])
 
 def test_calcMRSS():
     # Like above, create a test matrix of regressors
-    X = np.ones((5, 2))
-    X[:, 0] = np.array([1,2,3,4,5])
-    X[:, 1] = np.array([2,4,6,8,10])
-    Y = np.array([10,12,14,15,17])
+    X = np.ones((6, 4))
+    X[:, 0] = np.array([1,2,3,4,5,6])
+    X[:, 1] = np.array([2,4,6,9,10,12])
+    X[:, 2] = np.linspace(-1,1,6)
+    X[:, 3] = X[:,2]**2
+    Y = np.array([10,12,14,15,17,20])
     # Create linear regression object
     regr = linear_model.LinearRegression()
     # Train the model using the training sets
     regr.fit(X, Y)
     pred = regr.predict(X)
-    test_MRSS = np.mean(np.sum((pred - Y)**2/(Y.shape[-1]-2)))
+    test_MRSS = np.mean(np.sum((pred - Y)**2/(Y.shape[-1]-4)))
     #--------------------------------------------------------------------------#
     # my function
-    my_MRSS = calcMRSS(Y, X[:,0], X[:,1])
+    my_MRSS = calcMRSS(Y, X[:,0], X[:,1], X[:,2], X[:,3])
     #--------------------------------------------------------------------------#
     # assert
-    assert (abs(test_MRSS-my_MRSS) < .0001 )
-
-    
+    assert (abs(test_MRSS-my_MRSS) < .0001) 
    
