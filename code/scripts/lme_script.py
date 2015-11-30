@@ -38,6 +38,8 @@ for i in range(1,17):
     data_full = np.empty([64, 64, 34, 0])
     gain_full = np.empty([0,])
     loss_full = np.empty([0,])
+    linear_full = np.empty([0,])
+    quad_full = np.empty([0,])
     run_count = np.zeros(3)
     for j in range(1,4):
         direct='ds005/sub0'+str(i).zfill(2)+'/BOLD/task001_run00'+`j`+'/'
@@ -58,12 +60,14 @@ for i in range(1,17):
         data_full = np.concatenate((data_full,data),axis=3)
         gain_full = np.concatenate((gain_full,gain),axis=0)
         loss_full = np.concatenate((loss_full,loss),axis=0)
+        linear_full = np.concatenate((linear_full,linear_dr),axis=0)
+        quad_full = np.concatenate((quad_full,quad_dr),axis=0)
         
     run_group = np.concatenate((np.repeat(1, run_count[0]), 
                                 np.repeat(2, run_count[1]), np.repeat(3, run_count[2])), axis=0)
     thrshd = 400 ## set a threshold to idenfity the voxels inside the brain
     print "calculating subject parameters of "+str(i)
-    beta = calcBetaLme(data_full, gain_full, loss_full, run_group, thrshd)
+    beta = calcBetaLme(data_full, gain_full, loss_full, linear_full, quad_full, run_group, thrshd)
     sig_level = 0.05
     sig_gain_prop[i-1], sig_loss_prop[i-1] = calcSigProp(beta, sig_level)
     write='ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/sub0'+str(i).zfill(2)+'_lme_beta.txt'

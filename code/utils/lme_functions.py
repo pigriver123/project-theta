@@ -12,7 +12,7 @@ import math
 import numpy.linalg as npl
 import json
 
-def calcBetaLme(data_full, gain_full, loss_full, run_group, thrshd):
+def calcBetaLme(data_full, gain_full, loss_full, linear_full, quad_full, run_group, thrshd):
     """ 
     function to calculate beta parameters.
     Input: data from bold file, two list of gain, loss regressor values
@@ -29,7 +29,8 @@ def calcBetaLme(data_full, gain_full, loss_full, run_group, thrshd):
         if (np.mean(time_by_vox[:,k]) <= 400):
             beta[k, :] = [0, 0, 0, 0, 0]
         else:
-            dt = pd.DataFrame({'gain':gain_full,'loss':loss_full,'run_group':run_group, 'bold':time_by_vox[:,k]})
+            dt = pd.DataFrame({'gain':gain_full,'loss':loss_full,'run_group':run_group,
+                              'ldrift':linear_full,'qdrift':quad_full,'bold':time_by_vox[:,k]})
             mod_lme = MixedLM.from_formula(fml, dt, groups=dt["run_group"])
             lme_result = mod_lme.fit()
             beta[k, :] = [lme_result.fe_params["gain"], lme_result.pvalues["gain"], 
