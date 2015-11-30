@@ -25,10 +25,11 @@ TR=2
 tr_times = np.arange(0, 30, TR)
 hrf_at_trs = hrf(tr_times)
 
-os.chdir("../../data")
 
-dvars_out = json.load(open("dvarsOutliers.txt"))
-fd_out = json.load(open("fdOutliers.txt"))
+pathtofolder = '../../data/'
+
+dvars_out = json.load(open(pathtofolder + "dvarsOutliers.txt"))
+fd_out = json.load(open(pathtofolder + "fdOutliers.txt"))
 
 sig_gain_prop = np.empty(16)
 sig_loss_prop = np.empty(16)
@@ -43,15 +44,15 @@ for i in range(1,17):
     run_count = np.zeros(3)
     for j in range(1,4):
         direct='ds005/sub0'+str(i).zfill(2)+'/BOLD/task001_run00'+`j`+'/'
-        boldname = direct+'bold.nii.gz'
+        boldname = pathtofolder + direct+'bold.nii.gz'
         img=nib.load(boldname)
         data=img.get_data()
         run = j
-        behav_cond = 'ds005/sub0'+str(i).zfill(2)+'/behav/task001_run00'+`j`+'/behavdata.txt'
-        task_cond1 = 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
-        task_cond2 = 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond002.txt'
-        task_cond3 = 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond003.txt'
-        task_cond4 = 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond004.txt'
+        behav_cond = pathtofolder + 'ds005/sub0'+str(i).zfill(2)+'/behav/task001_run00'+`j`+'/behavdata.txt'
+        task_cond1 = pathtofolder + 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
+        task_cond2 = pathtofolder + 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond002.txt'
+        task_cond3 = pathtofolder + 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond003.txt'
+        task_cond4 = pathtofolder + 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond004.txt'
         parameters = merge_cond(behav_cond, task_cond1, task_cond2, task_cond3, task_cond4)
         neural_prediction = events2neural_extend(parameters,TR, n_vols)
         gain, loss, linear_dr, quad_dr = getRegressor(TR, n_vols, hrf_at_trs, neural_prediction)
@@ -66,14 +67,14 @@ for i in range(1,17):
     run_group = np.concatenate((np.repeat(1, run_count[0]), 
                                 np.repeat(2, run_count[1]), np.repeat(3, run_count[2])), axis=0)
     thrshd = 400 ## set a threshold to idenfity the voxels inside the brain
-    print "calculating subject parameters of "+str(i)
+    print "calculating parameters of subject "+str(i)
     beta = calcBetaLme(data_full, gain_full, loss_full, linear_full, quad_full, run_group, thrshd)
     sig_level = 0.05
     sig_gain_prop[i-1], sig_loss_prop[i-1] = calcSigProp(beta, sig_level)
-    write='ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/sub0'+str(i).zfill(2)+'_lme_beta.txt'
+    write=pathtofolder + 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/sub0'+str(i).zfill(2)+'_lme_beta.txt'
     np.savetxt(write, beta)
 
-write='ds005/models/lme_sig_gain_prop.txt'
+write=pathtofolder + 'ds005/models/lme_sig_gain_prop.txt'
 np.savetxt(write,  sig_gain_prop)
-write='ds005/models/lme_sig_loss_prop.txt'
+write=pathtofolder + 'ds005/models/lme_sig_loss_prop.txt'
 np.savetxt(write,  sig_loss_prop)
