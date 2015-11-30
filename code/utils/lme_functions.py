@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import nibabel as nib
 import numpy as np
 from behavtask_tr import events2neural_extend, merge_cond
-from regression_functions import hrf, getGainLoss, calcBeta, calcMRSS, deleteOutliers
+from regression_functions import hrf, getRegressor, calcBeta, calcMRSS, deleteOutliers
 import os
 from scipy.stats import gamma
 import math
