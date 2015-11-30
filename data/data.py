@@ -4,6 +4,8 @@ import hashlib
 import json
 
 
+
+
 def generate_file_md5(filename, blocksize=2**20):
     m = hashlib.md5()
     with open(filename, "rb") as f:
@@ -30,7 +32,38 @@ def check_hashes(d):
     return all_good
 
 
+#def make_hash_list(directory, title):
+    """
+    Returns a list of hashes for each path in directory
+
+    Parameters
+    ----------
+    directory: the path of the directory you want to make a hash list for
+    title: give a title for the hash list, include .txt or .json extension
+    
+    Returns
+    ----------
+    Writes a hash list in this directory
+    
+    ex: make_hash_list("ds005", "temp") makes hashlist for all of ds005
+    including subdirectories
+    """
+    
+"""
+    file_paths = []
+    for path, subdirs, files in os.walk(directory):
+        for name in files:
+            file_paths.append(os.path.join(path, name))
+    dictionary = {path: generate_file_md5(path) for path in file_paths}
+    with open(title, 'w') as outfile:
+        json.dump(dictionary, outfile)
+    return dictionary
+"""
+
 if __name__ == "__main__":
     with open('hashList.txt', 'r') as hl:
         d = json.load(hl)
     check_hashes(d)
+    #with open('new_hashList.txt', 'r') as hl2:
+    #    data = json.load(hl2)
+    #check_hashes(data)
