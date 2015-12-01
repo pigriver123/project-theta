@@ -1,5 +1,6 @@
 from __future__ import division
 from statsmodels.regression.mixed_linear_model import MixedLM
+from scipy import stats  
 import pandas as pd
 import matplotlib.pyplot as plt
 import nibabel as nib
@@ -52,3 +53,36 @@ def calcSigProp(beta, sig_level):
     sig_gain_prop = sig_gain / count_nzbeta
     sig_loss_prop = sig_loss / count_nzbeta
     return sig_gain_prop, sig_loss_prop
+
+
+def calcAnov(data_full, run_group):
+    """ 
+    function to do ANOVA test between runs
+    Input: data from bold file, dummy variable indicating the groups
+    Output: F test value and p value of anova test
+    """
+    T = data_full.shape[-1]
+    time_by_vox = np.reshape(data_full, (-1, T)).T
+    anov_test = np.empty([time_by_vox.shape[1],2])
+    for k in np.arange(0,time_by_vox.shape[1]):
+        ## set a threshold to idenfity the voxels inside the brain
+        if (np.mean(time_by_vox[:,k]) <= 400):
+            anov_test[k, :] = [0, 0]
+        else:
+            anov_test[k, :]  = stats.f_oneway(time_by_vox[:,k][run_group==1], 
+                                                            time_by_vox[:,k][run_group==2],
+                                                            time_by_vox[:,k][run_group==3])  
+    return anov_test
+
+
+def anovStat(anov_test):
+    """ 
+    function to do ANOVA test between runs
+    Input: data from bold file, dummy variable indicating the groups
+    Output: F test value and p value of anova test
+    """    
+    mask = anov_test[:, 1] != 0
+    nzcount = mask.sum()
+    p_value = anov_test[mask, 1]
+    prop_sig = np.sum(p_value <= 0.05/nzcount)/nzcount
+    return prop_sig

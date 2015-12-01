@@ -1,5 +1,6 @@
 from __future__ import division
 from statsmodels.regression.mixed_linear_model import MixedLM
+from scipy import stats  
 import pandas as pd
 import matplotlib.pyplot as plt
 import nibabel as nib
@@ -18,7 +19,7 @@ sys.path.append(pathtofunction)
 
 from behavtask_tr import events2neural_extend, merge_cond
 from regression_functions import hrf, getRegressor, calcBeta, calcMRSS, deleteOutliers
-from lme_functions import calcBetaLme, calcSigProp
+from lme_functions import calcBetaLme, calcSigProp, calcAnov, anovStat
 
 n_vols=240
 TR=2
@@ -33,6 +34,7 @@ fd_out = json.load(open(pathtofolder + "fdOutliers.txt"))
 
 sig_gain_prop = np.empty(16)
 sig_loss_prop = np.empty(16)
+anov_prop = np.empty(16)
 for i in range(1,17):
     # first three dimension for data shape is 64, 64, 34.
     # create array to store the combined dataset of three runs
@@ -73,8 +75,13 @@ for i in range(1,17):
     sig_gain_prop[i-1], sig_loss_prop[i-1] = calcSigProp(beta, sig_level)
     write=pathtofolder + 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/sub0'+str(i).zfill(2)+'_lme_beta.txt'
     np.savetxt(write, beta)
+    anov_test = calcAnov(data_full, run_group)
+    anov_prop[i-1] = anovStat(anov_test)
 
 write=pathtofolder + 'ds005/models/lme_sig_gain_prop.txt'
 np.savetxt(write,  sig_gain_prop)
 write=pathtofolder + 'ds005/models/lme_sig_loss_prop.txt'
 np.savetxt(write,  sig_loss_prop)
+write=pathtofolder + 'ds005/models/anova_prop.txt'
+np.savetxt(write,  anov_prop)
+
