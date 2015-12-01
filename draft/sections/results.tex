@@ -1,28 +1,25 @@
 \section{Results}
 
-\subsubsection{Behavioral analysis}
+\subsection{Behavioral analysis}
 
-We performed statistical analysis using both Python and R (The original paper use R package to fit the Logistic models). We use the library \emph{scikit-learn} in Python and the \emph{glm} function in \emph{stats} in R to fit the models. Models from two library yields the same results. Following is the box plot of the behavioral loss aversion $\lambda$ (median=1.94, mean=2.18, min=0.99, max=0.75). This result is consistent with that of the paper, which indicate that participants are indifferent to gambles whose gain are appoxiamtely twice as the loss. 
+We performed statistical analysis using both Python and R (The original paper 
+use R package to fit the Logistic models). We use the library 
+\emph{scikit-learn} in Python and the \emph{glm} function in \emph{stats} 
+in R to fit the models. Models from two library yields the same results. 
+Following is the box plot of the behavioral loss aversion $\lambda$ 
+(median=1.94, mean=2.18, min=0.99, max=0.75). This result is consistent with 
+that of the paper, which indicate that participants are indifferent to gambles 
+whose gain are appoxiamtely twice as the loss. 
 \begin{figure}[H]
 \caption{Box plot of the behavioral loss aversion $\lambda$ }
     \centering
         \includegraphics[scale=0.35]{figures/lambda_boxplot.png}
 \end{figure}
-The accuracy of Logistic models (for 16 participants, there are 16 models in total) on the training set yielded a median of 89.78\% (min=80.97\%, max=99.21\%). We also did the model evaluation using 10-fold cross-validation, they are still performing accuracies of a median of 89.86\% (min=79.92\%, max=98.45\%).
-
-\subsubsection{Mixed-effects model on fMRI data}
-First, we did the ANOVA test for each subject each voxels, grouping by runs. The high proportion of significant ANOVA F-test (after  Bonferroni correction under 0.05 significant level) shows that mixed effects model may perform well when collapsing three runs into one model. 
-\begin{figure}[H]
-\caption{Box plot of the proportion of significant ANOVA test}
-    \centering
-        \includegraphics[scale=0.45]{figures/anova_prop.png}
-\end{figure}
-Following are the slices of coefficient of gain for subject 002. The mixed-effects model for each subject yielded a a median of 9.4\% (min=6.4\%, max=21.5\%) and 8.3\% (min=4.6\%, max=15.4\%) of proportion of significant coefficient for gain and loss separately. 
-\begin{figure}[H]
-\caption{heatmap of coefficient of gain for subject 002}
-    \centering
-        \includegraphics[scale=0.35]{figures/sub002_lme_beta_gain.png}
-\end{figure}
+The accuracy of Logistic models (for 16 participants, there are 16 models in 
+total) on the training set yielded a median of 89.78\% (min=80.97\%, 
+max=99.21\%). We also did the model evaluation using 10-fold cross-validation, 
+they are still performing accuracies of a median of 89.86\% (min=79.92\%, 
+max=98.45\%).
 
 
 \subsection{Linear Regression on BOLD data}
@@ -93,5 +90,25 @@ losses. On one hand, we can perform linear regression assumption check in
 doing so; on the other hand, we can also see the coefficients in which regions 
 are significant and thus have significant brain activation.
 
+
+\subsection{Mixed-effects model on fMRI data}
+First, we did the ANOVA test for each subject each voxels, grouping by runs. 
+The high proportion of significant ANOVA F-test (after  Bonferroni correction 
+under 0.05 significant level) shows that mixed effects model may perform well 
+when collapsing three runs into one model. 
+\begin{figure}[H]
+\caption{Box plot of the proportion of significant ANOVA test}
+    \centering
+        \includegraphics[scale=0.45]{figures/anova_prop.png}
+\end{figure}
+Following are the slices of coefficient of gain for subject 002. The 
+mixed-effects model for each subject yielded a a median of 9.4\% (min=6.4\%, 
+max=21.5\%) and 8.3\% (min=4.6\%, max=15.4\%) of proportion of significant 
+coefficient for gain and loss separately. 
+\begin{figure}[H]
+\caption{heatmap of coefficient of gain for subject 002}
+    \centering
+        \includegraphics[scale=0.35]{figures/sub002_lme_beta_gain.png}
+\end{figure}
 
 
