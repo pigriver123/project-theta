@@ -22,6 +22,8 @@ os.chdir("../../data")
 
 dvars_out = json.load(open("dvarsOutliers.txt"))
 fd_out = json.load(open("fdOutliers.txt"))
+# Threshold cutoff from histogram observation
+threshold = 400
 
 for i in range(1,17):
     # first three dimension for data shape is 64, 64, 34.
@@ -52,8 +54,8 @@ for i in range(1,17):
         loss_full = np.concatenate((loss_full,loss),axis=0)
         linear_full = np.concatenate((linear_full,linear_dr),axis=0)
         quad_full = np.concatenate((quad_full,quad_dr),axis=0)
-    mea=calcMRSS(data_full, gain_full, loss_full, linear_full, quad_full)
-    X, Y, beta=calcBeta(data_full, gain_full, loss_full, linear_full, quad_full)
+    mea=calcMRSS(data_full, gain_full, loss_full, linear_full, quad_full, threshold)
+    X, Y, beta=calcBeta(data_full, gain_full, loss_full, linear_full, quad_full, threshold)
     # write='ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/sub'+`i`+'_beta.txt'
     # np.savetxt(write, beta)
 
