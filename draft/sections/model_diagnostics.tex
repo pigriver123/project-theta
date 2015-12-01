@@ -27,32 +27,31 @@ from linearity
 
 \begin{figure}[ht]
 \centering
-\includegraphics[scale=0.5]{figures/res_fitted}  
-\caption{Residual vs Fitted Values (mean across time for subject 1)}
+\includegraphics[scale=0.5]{figures/res_fittedval}  
+\caption{Residual vs Fitted Values for voxel 40000 across time}
 \label{fig:residual_vs_fitted}
 \end{figure}
 
-From the figure we can see the residual see to be centered around zero; however.
-the variance of the residuals seems to increase as the fitted values increase. 
-This perhaps suggests a variance-stabilizing transformation to the response 
-vector.  
+From the figure we can see there is clear linear pattern to residual. The
+residuals seems to increase as the fitted values increase, suggesting a 
+variance-stabilizing transformation to the response vector. We will keep this 
+in mind in out future analysis. 
 
 \subsubsection{Normality}
 Normality of the errors is checked by checking the normality of the residuals. 
 The normal qq-plot (Quantile-Quantile Plot) \ref{fig:qqplot} shows quantiles
 of the sorted residuals averaged across time against the normal theoretical 
-quantiles. Ideally, the relationship should be linear. Here we see that there
-appears to be heavy tails with an abnormal amount of residuals being zero. In
-practice, this makes sense because a large part of the regression produces beta
-values that are zero: voxels may not be mapping to the empty regions. While 
-the residuals are non-normal and requires attention, the linear-squares 
-estimator is still a good approximation in that it is the best linear unbiased 
-estimator.
+quantiles. Ideally, the relationship should be linear. Here we show the qqplot
+of the quantiles of residuals for the 40000th voxel, taken as a random voxel 
+near the center of the image. We can see that the normality assumption is 
+reasonable. In practice, this makes sense because we expect the accross-time
+changes/errors of estimates for a sigle voxel to be close to normally 
+distributed.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.5]{figures/qqplot}  
-\caption{Normal QQ plot of the average residuals across time.}
+\caption{Normal QQ plot of the residuals for 40000 th voxel.}
 \label{fig:qqplot}
 \end{figure}
 
