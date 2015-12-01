@@ -21,35 +21,38 @@ obey the linear model. The methods used to detect these usual observations is
 further discussed in \textit{Outlier Detection}, so it will be left out here. 
 
 \subsubsection{Linearity and Constant Variance}
-The residual versus fitted values plot \ref{fig:residual vs fitted} is a 
-standard plot for observing constant variance of errors. While a residual versus
-independent variables \ref{fig:residual vs independent} plot can reveal 
-potential deviation from linearity. 
+The residual versus fitted values plot \ref{fig:residual_vs_fitted} is a 
+standard plot for observing constant variance of errors and potential deviations
+from linearity
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.5]{figures/res_fitted}  
-\caption{Across-subject mean of t-Statistic per voxel.}
-\label{fig:residual vs fitted}
+\caption{Residual vs Fitted Values (mean across time for subject 1)}
+\label{fig:residual_vs_fitted}
 \end{figure}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=0.5]{figures/res_independent}  
-\caption{Residual vs Parametric Loss (Red), Residual vs Parametric Gain (Blue)}
-\label{fig:residual vs fitted}
-\end{figure}
+From the figure we can see the residual see to be centered around zero; however.
+the variance of the residuals seems to increase as the fitted values increase. 
+This perhaps suggests a variance-stabilizing transformation to the response 
+vector.  
 
 \subsubsection{Normality}
 Normality of the errors is checked by checking the normality of the residuals. 
 The normal qq-plot (Quantile-Quantile Plot) \ref{fig:qqplot} shows quantiles
-of the sorted residuals against the normal theoretical quantiles. Ideally, the
-relationship should be linear. Here we see...
+of the sorted residuals averaged across time against the normal theoretical 
+quantiles. Ideally, the relationship should be linear. Here we see that there
+appears to be heavy tails with an abnormal amount of residuals being zero. In
+practice, this makes sense because a large part of the regression produces beta
+values that are zero: voxels may not be mapping to the empty regions. While 
+the residuals are non-normal and requires attention, the linear-squares 
+estimator is still a good approximation in that it is the best linear unbiased 
+estimator.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.5]{figures/qqplot}  
-\caption{Normal QQ Plot of Residuals}
+\caption{Normal QQ plot of the average residuals across time.}
 \label{fig:qqplot}
 \end{figure}
 
