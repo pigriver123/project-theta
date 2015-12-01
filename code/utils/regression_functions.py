@@ -1,6 +1,8 @@
+from __future__ import division
 import numpy as np
 from scipy.stats import gamma
 import numpy.linalg as npl
+
 
 def hrf(times):
     """ 
@@ -50,7 +52,7 @@ def deleteOutliers(data, gain, loss, linear_dr, quad_dr, sub, run, dvars_out, fd
     quad_dr = quad_dr[nonoutliers]
     return data, gain, loss, linear_dr, quad_dr
 
-def calcBeta(data, gain, loss, linear_dr, quad_dr):
+def calcBeta(data, gain, loss, linear_dr, quad_dr, threshold=None):
     """ 
     function to calculate beta parameters.
     Input: data from bold file, two list of gain, loss regressor values
@@ -62,18 +64,22 @@ def calcBeta(data, gain, loss, linear_dr, quad_dr):
     design[:, 2] = linear_dr
     design[:, 3] = quad_dr
     designp = npl.pinv(design)
+    if threshold!=None:
+        mean_data = np.mean(data, axis=-1)
+        mask = mean_data > threshold
+        data[~mask]=0
     T = data.shape[-1]
     time_by_vox = np.reshape(data, (-1, T)).T
     beta_hats = designp.dot(time_by_vox)
     return design, time_by_vox, beta_hats
 
-def calcMRSS(data, gain, loss, linear_dr, quad_dr):
+def calcMRSS(data, gain, loss, linear_dr, quad_dr, threshold=None):
     """ 
     function to calculate MRSS.
     Input: data from bold file, two list of gain, loss regressor values
     Output: X, Y, coefficient
     """
-    design, time_by_vox, beta_hats = calcBeta(data, gain, loss, linear_dr, quad_dr)
+    design, time_by_vox, beta_hats = calcBeta(data, gain, loss, linear_dr, quad_dr, threshold)
     T = data.shape[-1]
     residuals = time_by_vox - design.dot(beta_hats)
     df = T - npl.matrix_rank(design)
