@@ -11,6 +11,7 @@ sys.path.append(pathtofunction)
 
 from behavtask_tr import events2neural_extend, merge_cond
 from regression_functions import hrf, getRegressor, calcBeta, calcMRSS, deleteOutliers
+from smooth_gaussian import fwhm2sigma, smooth_spatial
 
 n_vols=240
 TR=2
@@ -35,6 +36,7 @@ for i in range(1,17):
         boldname = direct+'bold.nii.gz'
         img=nib.load(boldname)
         data=img.get_data()
+        data=smooth_spatial(data)
         run = j
         behav_cond = 'ds005/sub0'+str(i).zfill(2)+'/behav/task001_run00'+`j`+'/behavdata.txt'
         task_cond1 = 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond001.txt'
