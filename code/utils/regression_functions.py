@@ -2,7 +2,6 @@ from __future__ import division
 import numpy as np
 from scipy.stats import gamma
 import numpy.linalg as npl
-from behavtask_tr import events2neural_extend, merge_cond
 
 
 def hrf(times):

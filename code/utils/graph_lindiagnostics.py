@@ -27,6 +27,7 @@ def qqplot(residuals, dist_type = 'norm', subplot_num = None, saveit = False):
 
     """
     if subplot_num != None:
+        out = str(subplot_num)
         if type(subplot_num) is list:
             plt.subplot(subplot_num[0],subplot_num[1],subplot_num[2])
             plotnum = str(subplot_num[2])
@@ -46,13 +47,14 @@ def qqplot(residuals, dist_type = 'norm', subplot_num = None, saveit = False):
         savecond = 'not saved'
     return  out + ' plotted' + "," + savecond
 
-def res_fitted(fitted_val, residuals, transform = None, subplot_num = None, saveit = False):
+def res_var(var_val, residuals, name, subplot_num = None, saveit = False):
     """
     Parameters
     ----------
     residuals: 1-d array
-    fitted_val: fitted values 1-d array
+    var_val: variable values 1-d array
     subplot_num: location of subplot in 3 digits or a list of 3 numericals
+    name: string, name of variable
 
     Returns:
     --------
@@ -75,17 +77,16 @@ def res_fitted(fitted_val, residuals, transform = None, subplot_num = None, save
     else: 
         out = 'Single plot'
         plotnum = ''
-    if transform != None:
-        fitted_val= transform(fitted_val)
-    plt.plot(fitted_val, residuals, 'o')
+    plt.plot(var_val, residuals, 'o')
     plt.axhline(y = 0)
-    plt.title("Residual vs Fitted Plot " + plotnum)
-    plt.xlabel("Fitted Values")
+    plt.title("Residual vs " + name + plotnum)
+    plt.xlabel(name +" Values")
     plt.ylabel("Residual Values")
     if saveit:
-        plt.savefig('../../paper/figures/res_fitted.png')
+        plt.savefig('../../paper/figures/res_' + name +'.png')
         plt.close()
         savecond = 'saved'
     else:
         savecond =  "not saved"
     return  out + ' plotted' + "," + savecond
+
