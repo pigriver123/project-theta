@@ -2,6 +2,7 @@ from __future__ import print_function, division
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def merge_cond(behav_cond, task_cond1, task_cond2, task_cond3, task_cond4):
     """
     Input: 
