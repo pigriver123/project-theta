@@ -35,3 +35,38 @@ There are also 4 model conditions, with events corresponding to
   \item Parametric Loss
   \item Distance from Indifference
 \end{enumerate}
+
+\subsection{Processing}
+Before we run our analyses and fit betas to our data, we first take a few 
+steps to clean the BOLD datasets. We graph the dvars (RMS of the signal 
+derivatives) and the framewise displacement, and we use that in conjunction 
+with the mean signal of the BOLD data to determine outliers to remove. The 
+BOLD data is smoothed spatially in order to make clearer the signal in 
+relation to the noise present. We also take the mean signal of the BOLD data 
+across the run and plot the histogram for each run and subject to help 
+manually determine a good threshold for a mask we use to isolate more active 
+voxels in the brain. This helps us find beta coefficients for more relevant 
+voxels. We also model and remove the linear and quadratic drift that may be 
+present in the runs. 
+We use subject 2 run 2 to show an example of our outlier results.
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[scale=0.5]{figures/dvars_sub2run2.png}
+    \caption{DVARS for subject 2 run 2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[scale=0.5]{figures/fd_sub2run2.png}
+    \caption{Framewise Displacement for subject 2 run 2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[scale=0.5]{figures/mean_sub2run2.png}
+    \caption{Data mean for subject 2 run 2}
+\end{figure}
+
+
+
