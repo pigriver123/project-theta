@@ -27,15 +27,15 @@ from linearity
 
 \begin{figure}[ht]
 \centering
-\includegraphics[scale=0.5]{figures/res_fittedval}  
-\caption{Residual vs Fitted Values for voxel 40000 across time}
+\includegraphics[scale=0.5]{figures/res_fitted}  
+\caption{Subject 2 Residual vs Fitted Values for voxel 40000, position 
+cooridinate (18,24,16) across time}
 \label{fig:residual_vs_fitted}
 \end{figure}
 
-From the figure we can see there is clear linear pattern to residual. The
-residuals seems to increase as the fitted values increase, suggesting a 
-variance-stabilizing transformation to the response vector. We will keep this 
-in mind in out future analysis. 
+From the figure we can see there is residuals seem to have a constant variance
+about zero with good spread, which is what we hoped to expect. This suggests 
+homoscedasticity and satisfies the assumption of model. 
 
 \subsubsection{Normality}
 Normality of the errors is checked by checking the normality of the residuals. 
@@ -51,7 +51,8 @@ distributed.
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.5]{figures/qqplot}  
-\caption{Normal QQ plot of the residuals for 40000 th voxel.}
+\caption{Subject 2 Normal QQ plot of the residuals for 40000, position 
+cooridinate (18,24,16) voxel.}
 \label{fig:qqplot}
 \end{figure}
 
