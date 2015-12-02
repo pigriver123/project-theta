@@ -1,10 +1,4 @@
-import matplotlib.pyplot as plt 
-import nibabel as nib
-import numpy as np
-import os
-from stimuli import events2neural
-from scipy.stats import gamma
-import math
+
 import numpy.linalg as npl
 from scipy.stats import mstats
 from scipy.stats import t
