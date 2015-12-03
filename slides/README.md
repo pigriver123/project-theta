@@ -13,3 +13,17 @@ generated files.
 
 Create a new file `final.md` and add appropriate entries to the `Makefile`.
 
+## Instructions
+
+### Building the slides
+
+`make` to clean and build both progress and final slides
+`make final` to build the final slides
+`make progress` to build the progress slides
+
+### Making the slides
+
+- To edit progress slides, edit `progress.md` directly
+- To edit final slides, edit each invidual portion beginning with `0X_`, where
+`X` is the section number. To add a section, format each markdown file to begin
+with `0X_`. For example, the 7th section can be `07_acknowledgment.md`.
