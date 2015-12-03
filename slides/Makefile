@@ -1,14 +1,12 @@
-.PHONY: all clean
+.PHONY: all clean final progress
 
-all: clean progress.pdf final.pdf
+all: clean final progress
 
 clean:
-	rm -f progress.pdf
-	rm -f final.pdf
+	rm -f progress.pdf final.pdf 
 
-progress.pdf: progress.md
+final: 0*.md
+	pandoc -t beamer -s 0*.md -o final.pdf
+
+progress: progress.md
 	pandoc -t beamer -s progress.md -o progress.pdf
-
-final.pdf: final.md
-	pandoc -t beamer -s final.md -o final.pdf
-

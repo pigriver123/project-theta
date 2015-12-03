@@ -24,6 +24,6 @@ for subject in range(1, 17):
         plot_number += 1
 
 #fig.tight_layout()
-fig.savefig('../code/scripts/mean_hists.png')
+fig.savefig('../paper/figures/mean_hists.png')
 
 
