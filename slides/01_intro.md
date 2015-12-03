@@ -1,6 +1,6 @@
-% Project Theta Progress Report
+% Project Theta Final Slidedeck
 % Brian Qiu, Benjamin Hsieh, Siyao Chang, Boying Gong, Jiang Zhu
-% November 12, 2015
+% December 3, 2015
 
 # Background
 
@@ -15,6 +15,9 @@
 - Brain activation results in different regions points towards yes
 
 ## The Data
+- 16 subjects
+- ds005
+- gamble task
 
 
 

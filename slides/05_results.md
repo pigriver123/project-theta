@@ -25,21 +25,21 @@ where $Y_{i}$ is the BOLD data of voxel $i$,  $X_{ldrift}$ and $X_{qdrift}$ are 
 ## Linear Regression on fMRI data (continued)
 \begin{figure}[H]
     \centering
-        \includegraphics[scale=0.25]{../draft/figures/sub2gain_heatmap.png}
+        \includegraphics[scale=0.25]{../paper/figures/sub2gain_heatmap.png}
     \caption{Coefficients of the gain values for subject 2}
 \end{figure}
 
 ## Linear Regression on fMRI data (continued)
 \begin{figure}[H]
     \centering
-        \includegraphics[scale=0.25]{../draft/figures/sub2loss_heatmap.png}
+        \includegraphics[scale=0.25]{../paper/figures/sub2loss_heatmap.png}
     \caption{Coefficients of the loss values for subject 2}
 \end{figure}
 
 ## Linear Regression on fMRI data (continued)
 \begin{figure}[H]
     \centering
-        \includegraphics[scale=0.25]{../draft/figures/sub2diff_heatmap.png}
+        \includegraphics[scale=0.25]{../paper/figures/sub2diff_heatmap.png}
     \caption{Difference between gain and loss coefficients for subject 2}
 \end{figure}
 
