@@ -1,6 +1,6 @@
 # Results
 
-## Behaviral Analysis
+## Behavioral Analysis
 
 - Fit Logistic regression model on the behavioral data
 \begin{equation}
@@ -8,7 +8,7 @@
 \end{equation}
 where the response are categorical variable indicating acceptance or rejection of a gamble.
 
-- Calculate the behavoral loss aversion
+- Calculate the behavioral loss aversion
 \begin{equation}
 \lambda = -\beta_{loss} / \beta_{gain}
 \end{equation}
@@ -21,7 +21,7 @@ median = 89.78\% min = 80.97\% max = 99.21\%
 median = 89.86\% min = 79.92\% max = 98.45\%
 \end{itemize}
 
-## Behaviral Analysis (Continued)
+## Behavioral Analysis (Continued)
 
 \begin{figure}
 \caption{Box plot of the behavioral loss aversion $\lambda$ }
