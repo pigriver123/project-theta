@@ -20,15 +20,24 @@ def calcBetaLme(data_full, gain_full, loss_full, linear_full, quad_full, run_gro
     fml = "bold ~ gain + loss"
     for k in np.arange(0,time_by_vox.shape[1]):
         ## set a threshold to idenfity the voxels inside the brain
-        if (np.mean(time_by_vox[:,k]) <= thrshd):
-            beta[k, :] = [0, 0, 0, 0, 0]
+        if thrshd != None:
+            if (np.mean(time_by_vox[:,k]) <= thrshd):
+                beta[k, :] = [0, 0, 0, 0, 0]
+            else:
+                dt = pd.DataFrame({'gain':gain_full,'loss':loss_full,'run_group':run_group,
+                              'ldrift':linear_full,'qdrift':quad_full,'bold':time_by_vox[:,k]})
+                mod_lme = MixedLM.from_formula(fml, dt, groups=dt["run_group"])
+                lme_result = mod_lme.fit()
+                beta[k, :] = [lme_result.fe_params["gain"], lme_result.pvalues["gain"], 
+                      lme_result.fe_params["loss"], lme_result.pvalues["loss"], lme_result.converged]
         else:
             dt = pd.DataFrame({'gain':gain_full,'loss':loss_full,'run_group':run_group,
-                              'ldrift':linear_full,'qdrift':quad_full,'bold':time_by_vox[:,k]})
+                          'ldrift':linear_full,'qdrift':quad_full,'bold':time_by_vox[:,k]})
             mod_lme = MixedLM.from_formula(fml, dt, groups=dt["run_group"])
             lme_result = mod_lme.fit()
             beta[k, :] = [lme_result.fe_params["gain"], lme_result.pvalues["gain"], 
-                      lme_result.fe_params["loss"], lme_result.pvalues["loss"], lme_result.converged]
+                  lme_result.fe_params["loss"], lme_result.pvalues["loss"], lme_result.converged]
+
     return beta
 
 
@@ -59,12 +68,18 @@ def calcAnov(data_full, run_group, thrshold = None):
     anov_test = np.empty([time_by_vox.shape[1],2])
     for k in np.arange(0,time_by_vox.shape[1]):
         ## set a threshold to idenfity the voxels inside the brain
-        if (np.mean(time_by_vox[:,k]) <= thrshold):
-            anov_test[k, :] = [0, 0]
+        if thrshold != None:
+            if (np.mean(time_by_vox[:,k]) <= thrshold):
+                anov_test[k, :] = [0, 0]
+            else:
+                anov_test[k, :]  = stats.f_oneway(time_by_vox[:,k][run_group==1], 
+                                                            time_by_vox[:,k][run_group==2],
+                                                            time_by_vox[:,k][run_group==3])
         else:
             anov_test[k, :]  = stats.f_oneway(time_by_vox[:,k][run_group==1], 
-                                                            time_by_vox[:,k][run_group==2],
-                                                            time_by_vox[:,k][run_group==3])  
+                                                        time_by_vox[:,k][run_group==2],
+                                                        time_by_vox[:,k][run_group==3])
+            
     return anov_test
 
 
