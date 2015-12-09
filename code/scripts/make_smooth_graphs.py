@@ -1,12 +1,15 @@
 #import numpy as np
 import matplotlib.pyplot as plt
 import nibabel as nib
+import sys
+sys.path.append('../utils')
 import smooth_gaussian
 
 #possibly put in os function to specify path later
 
 #this file was more of a test, but since can easily adapt it into a more useful
 #script i left it in utils
+
 
 
 img = nib.load("../../data/ds005/sub001/BOLD/task001_run001/bold.nii.gz")
@@ -29,7 +32,7 @@ ax4.imshow(spatial4, cmap = 'gray')
 ax4.set_title('fwhm = 3mm')
 
 
-plt.savefig("smoothed_images.png")
+plt.savefig("../../paper/figures/smoothed_images.png")
 plt.close()
 
 
