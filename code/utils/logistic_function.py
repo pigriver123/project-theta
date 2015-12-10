@@ -2,6 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def plot_roc(logreg_proba, y):
+    """ 
+    function to plot the ROC (receiver operating characteristic) curve and 
+        calculate the corresponding AUC (Area Under Curve).
+    Input: 
+        logreg_proba: The estimate probability for each class calculated from 
+                    logistic regression model. 
+        y: The actual class of response,.
+    Output: The ROC curve and and correspong AUC value.
+    """
     
     thresholds = np.linspace(1,0,101)
 
