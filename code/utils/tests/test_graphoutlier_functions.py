@@ -14,7 +14,7 @@ import sys
 from numpy.testing import assert_array_equal
 
 # Set path
-sys.path.append('../../graphing')
+sys.path.append('../../graphing/')
 
 # Load graph_functions:
 from graphoutlier_functions import loadtxt_dict, vol_mean

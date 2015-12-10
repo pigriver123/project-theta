@@ -1,7 +1,7 @@
 .PHONY: test coverage
 
 test:
-	nosetests code/utils -w ..
+	nosetests code/utils/tests -w ..
 
 coverage:
-	nosetests code/utils -w .. --with-coverage --cover-package=utils 
+	nosetests code/utils/tests -w .. --with-coverage --cover-package=utils 
