@@ -9,11 +9,11 @@ Run with::
 # Loading modules.
 from __future__ import absolute_import, division, print_function
 import numpy as np
-import sys
+import sys, os
 from numpy.testing import assert_array_equal
 
 # Set path
-sys.path.append('../graphing')
+sys.path.append(os.path.join(os.path.dirname(__file__), "../graphing/"))
 
 # Load graph_functions:
 import graphoutlier_functions as gf
