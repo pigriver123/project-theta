@@ -5,7 +5,7 @@ import json
 import sys
 
 # Path to function
-pathtofunction = '../utils'
+pathtofunction = '../utils/functions'
 # Append path to sys
 sys.path.append(pathtofunction)
 

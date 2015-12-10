@@ -21,7 +21,7 @@ from numpy.testing import assert_almost_equal, assert_allclose
 
 
 # Set path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../functions')))
 
 # Path to the first subject, first run, this is used as the test data for 
 # getGainLoss:

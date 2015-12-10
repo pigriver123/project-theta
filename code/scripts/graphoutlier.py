@@ -9,7 +9,7 @@ import json
 # Paths
 pathtodata = '../../data/'
 pathtofig = '../../paper/figures/'
-pathtofunction = '../utils'
+pathtofunction = '../utils/functions'
 # Append fuction path
 sys.path.append(pathtofunction)
 # Import function

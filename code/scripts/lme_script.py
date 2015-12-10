@@ -1,19 +1,11 @@
 from __future__ import division
-from statsmodels.regression.mixed_linear_model import MixedLM
-from scipy import stats  
-import pandas as pd
-import matplotlib.pyplot as plt
 import nibabel as nib
 import numpy as np
-import os
-from scipy.stats import gamma
-import math
-import numpy.linalg as npl
 import json
 import sys
 
 # Path to function
-pathtofunction = '../utils'
+pathtofunction = '../utils/functions'
 # Append path to sys
 sys.path.append(pathtofunction)
 

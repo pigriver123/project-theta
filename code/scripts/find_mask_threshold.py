@@ -2,7 +2,7 @@ import nibabel as nib
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
-sys.path.append('../utils')
+sys.path.append('../utils/functions')
 import smooth_gaussian
 import os
 
