@@ -10,12 +10,11 @@ Run with::
 # Loading modules.
 from __future__ import absolute_import, division, print_function
 import numpy as np
-import os
 import sys
 from numpy.testing import assert_array_equal
 
 # Set path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append('../../graphing')
 
 # Load graph_functions:
 from graphoutlier_functions import loadtxt_dict, vol_mean
