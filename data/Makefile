@@ -1,35 +1,17 @@
 data:
 	wget http://openfmri.s3.amazonaws.com/tarballs/ds005_raw.tgz
-<<<<<<< HEAD
-
+	wget http://nipy.bic.berkeley.edu/rcsds/ds005_mnifunc.tar
+	wget http://nipy.bic.berkeley.edu/rcsds/mni_icbm152_nlin_asym_09c_2mm.tar.gz
+    
 validate:
 	python data.py
 
 unzip:
 	tar -xvzf ds005_raw.tgz 
-	for i in {1..9}
-	do
-	for j in {1..3}
-	do
-	gunzip ds005/sub00${i}/BOLD/task001_run00${j}/bold.nii.gz
-	done
-	done
-	
-	for i in {10..16}
-	do
-	for j in {1..3}
-	do
-	gunzip ds005/sub0${i}/BOLD/task001_run00${j}/bold.nii.gz
-	done
-	done
-	
-=======
-	tar -xvzf ds005_raw.tgz
-	#wget http://nipy.bic.berkeley.edu/rcsds/ds005_mnifunc.tar
-	#tar -xvf ds005_mnifunc.tar
+	tar -xvf ds005_mnifunc.tar
+	tar -xvzf mni_icbm152_nlin_asym_09c_2mm.tar.gz
 	rm ds005_raw.tgz
-	#rm ds005_mnifunc.tar
-
-validate:
-	python data.py	
->>>>>>> a96098ccbb47c304f972e54f9161165806dc04f1
+	rm ds005_mnifunc.tar
+	rm mni_icbm152_nlin_asym_09c_2mm.tar.gz
+	mv mni_icbm152_nlin_asym_09c_2mm templates
+	mv templates/mni_icbm152_t1_tal_nlin_asym_09c_2mm.nii templates/mni_standard.nii

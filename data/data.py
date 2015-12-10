@@ -32,7 +32,7 @@ def check_hashes(d):
     return all_good
 
 
-#def make_hash_list(directory, title):
+def make_hash_list(directory, title):
     """
     Returns a list of hashes for each path in directory
 
@@ -48,8 +48,6 @@ def check_hashes(d):
     ex: make_hash_list("ds005", "temp") makes hashlist for all of ds005
     including subdirectories
     """
-    
-"""
     file_paths = []
     for path, subdirs, files in os.walk(directory):
         for name in files:
@@ -58,12 +56,14 @@ def check_hashes(d):
     with open(title, 'w') as outfile:
         json.dump(dictionary, outfile)
     return dictionary
-"""
 
 if __name__ == "__main__":
     with open('hashList.txt', 'r') as hl:
         d = json.load(hl)
     check_hashes(d)
-    #with open('new_hashList.txt', 'r') as hl2:
-    #    data = json.load(hl2)
-    #check_hashes(data)
+    with open('new_hashList.txt', 'r') as hl2:
+        data = json.load(hl2)
+    check_hashes(data)
+    with open('mni_hash.txt', 'r') as hl3:
+        data = json.load(hl3)
+    check_hashes(data)
