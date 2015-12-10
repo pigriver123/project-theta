@@ -1,4 +1,4 @@
-.PHONY: all clean coverage test
+.PHONY: all clean coverage test verbose
 
 all: clean
 
@@ -6,7 +6,7 @@ clean:
 	find . -name "*.so" -o -name "*.pyc" -o -name "*.pyx.md5" | xargs rm -f
 
 coverage:
-	nosetests code/utils/tests data/tests --with-coverage --cover-package=data  --cover-package=code/utils
+	nosetests code/utils/tests data/tests --with-coverage --cover-package=data/data.py  --cover-package=code/utils
 
 test:
 	nosetests code/utils/tests data/tests
