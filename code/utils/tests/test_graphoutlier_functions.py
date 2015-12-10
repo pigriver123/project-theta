@@ -1,7 +1,6 @@
 """
 Test graph_function module the following functions:
     loadtxt_dict
-    loadnib_dict
     vol_mean
 
 Run with::
