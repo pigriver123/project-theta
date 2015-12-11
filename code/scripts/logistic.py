@@ -9,9 +9,7 @@ pathtofunction = '../utils'
 # Append path to sys
 sys.path.append(pathtofunction)
 
-from logistic_function import plot_roc
-
-pathtofolder = '../../data/'
+from logistic_function import create_confusion, getMin_thrs, plot_roc
 
 pathtofolder = '../../data/'
 
@@ -19,7 +17,9 @@ nsub = 16
 beh_lambda = np.array([])
 beh_score = np.array([])
 val_score = np.array([])
-AUC_val = np.array([])
+Min_thrs = np.array([])
+AUC_smr = np.array([])
+fig = plt.figure(figsize=(20,20))
 for i in np.arange(1, nsub+1):
     run1 = np.loadtxt(pathtofolder + 'ds005/sub0'+ str(i).zfill(2)+
                       '/behav/task001_run001/behavdata.txt', skiprows = 1)
@@ -47,13 +47,16 @@ for i in np.arange(1, nsub+1):
     val_score = np.append(val_score, scores.mean())
     # calculate the AUC and plot ROC curve for each subject
     logreg_proba = logreg.predict_proba(X)
-    fig, AUC = plot_roc(logreg_proba, y)
-    fig.savefig(pathtofolder + 'ds005/models/roc_curve_sub0'+ str(i).zfill(2))
-    AUC_val = np.append(AUC_val, scores.mean())
-    
+    confusion = create_confusion(logreg_proba, y)
+    addsub = fig.add_subplot(4, 4, i)
+    addsub, AUC = plot_roc(confusion, addsub)
+    Min_thrs = np.append(Min_thrs, getMin_thrs(confusion))
+    AUC_smr = np.append(AUC_smr, AUC)
 
 np.savetxt(pathtofolder + 'ds005/models/lambda.txt', beh_lambda)
 np.savetxt(pathtofolder + 'ds005/models/reg_score.txt', beh_score)
 np.savetxt(pathtofolder + 'ds005/models/cross_val_score.txt', val_score)
-np.savetxt(pathtofolder + 'ds005/models/AUC_val.txt', AUC_val)
+np.savetxt(pathtofolder + 'ds005/models/Min_thrs.txt', Min_thrs.reshape(16,3))
+np.savetxt(pathtofolder + 'ds005/models/AUC_smr.txt', AUC_smr)
+fig.savefig(pathtofolder + 'ds005/models/roc_curve')
 
