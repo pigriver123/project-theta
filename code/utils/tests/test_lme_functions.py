@@ -44,7 +44,7 @@ def test_calcBetaLme():
     # My function, should produce same results if groups are all the same:
     lme = calcBetaLme(Y, X[:,0], X[:,1], X[:,2], X[:,3], np.repeat(1,2000))
     lme_thrs = calcBetaLme(Y, X[:,0], X[:,1], X[:,2], X[:,3], np.repeat(1,2000), -40000)
-    lme_thrs1 = calcBetaLme(Y, X[:,0], X[:,1], X[:,2], X[:,3], np.repeat(1,2000), 0)
+    lme_thrs1 = calcBetaLme(Y, X[:,0], X[:,1], X[:,2], X[:,3], np.repeat(1,2000), 10)
     # Compare betas
     my_betas = lme.ravel()[[0,2]]
     my_betas_thrs = lme_thrs.ravel()[[0,2]]
@@ -110,7 +110,7 @@ def test_calcAnova():
     # My function
     my_anova = calcAnov(t_data, run_group).ravel()
     my_anova_thrs = calcAnov(t_data, run_group, -40000).ravel()
-    my_anova_thrs1 = calcAnov(t_data, run_group, 0).ravel()
+    my_anova_thrs1 = calcAnov(t_data, run_group, 10).ravel()
     # Assert
     assert_allclose(test_anova, my_anova)
     assert_allclose(test_anova, my_anova_thrs)
