@@ -1,5 +1,4 @@
 from __future__ import print_function, division
-import os
 import hashlib
 import json
 
@@ -48,8 +47,7 @@ def check_hashes(d):
     ex: make_hash_list("ds005", "temp") makes hashlist for all of ds005
     including subdirectories
     """
-    
-"""
+    """
     file_paths = []
     for path, subdirs, files in os.walk(directory):
         for name in files:
@@ -58,12 +56,9 @@ def check_hashes(d):
     with open(title, 'w') as outfile:
         json.dump(dictionary, outfile)
     return dictionary
-"""
+    """
 
 if __name__ == "__main__":
-    with open('hashList.txt', 'r') as hl:
+    with open('total_hash.txt', 'r') as hl:
         d = json.load(hl)
     check_hashes(d)
-    #with open('new_hashList.txt', 'r') as hl2:
-    #    data = json.load(hl2)
-    #check_hashes(data)
