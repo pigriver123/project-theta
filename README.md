@@ -10,4 +10,13 @@ _**Topic:**_ [The Neural Basis of Loss Aversion in Decision Making Under Risk] (
 [SOME SUMMARY OF PAPER]
 
 ## Instructions
-[NEED TO ADD]
+
+- 'make clean' will delete extraneous files created by our scripts
+- 'make coverage' will check the coverage of our data, code directories 
+- 'make test' will run the tests in our code/utils/tests and code/data/tests directory
+- 'make verbose' is the verbose version of 'make test'
+
+
+
+
+[NEED TO ADD: instructions for data, scripts/analysis, paper (should be done in that order)]
