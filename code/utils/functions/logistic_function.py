@@ -1,5 +1,7 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 
 def create_confusion(logreg_proba, y, thrs_inc=0.01):
     """

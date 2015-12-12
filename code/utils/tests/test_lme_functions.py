@@ -28,8 +28,6 @@ pathtotest = 'code/utils/tests/'
 # Load graph_functions:
 from lme_functions import calcBetaLme, calcSigProp, calcAnov, anovStat
 
-
-
 def test_calcBetaLme():
     # Test data with large n = 1500
     X = np.ones((2000, 4))
@@ -45,9 +43,14 @@ def test_calcBetaLme():
     test_betas = regr.coef_
     # My function, should produce same results if groups are all the same:
     lme = calcBetaLme(Y, X[:,0], X[:,1], X[:,2], X[:,3], np.repeat(1,2000))
+    lme_thrs = calcBetaLme(Y, X[:,0], X[:,1], X[:,2], X[:,3], np.repeat(1,2000), -40000)
+
     # Compare betas
     my_betas = lme.ravel()[[0,2]]
+    my_betas_thrs = lme_thrs.ravel()[[0,2]]
     assert max(abs(my_betas - test_betas[:2])) < 0.005
+    assert max(abs(my_betas_thrs - test_betas[:2])) < 0.005
+
     
 def test_calcSigProp():
     # Set up test betas
@@ -104,9 +107,10 @@ def test_calcAnova():
     test_anova = ANOVA(groups)
     # My function
     my_anova = calcAnov(t_data, run_group).ravel()
-
+    my_anova_thrs = calcAnov(t_data, run_group, -40000).ravel()
     # Assert
     assert_allclose(test_anova, my_anova)
+    assert_allclose(test_anova, my_anova_thrs)
 
 def test_anovStat():
     # create a test dataset
