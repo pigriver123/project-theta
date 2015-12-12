@@ -5,7 +5,7 @@ from sklearn.linear_model import LogisticRegression
 import sys
 
 # Path to function
-pathtofunction = '../utils'
+pathtofunction = '../utils/functions'
 # Append path to sys
 sys.path.append(pathtofunction)
 
@@ -49,7 +49,16 @@ for i in np.arange(1, nsub+1):
     logreg_proba = logreg.predict_proba(X)
     confusion = create_confusion(logreg_proba, y)
     addsub = fig.add_subplot(4, 4, i)
-    addsub, AUC = plot_roc(confusion, addsub, i)
+    addsub, ROC, AUC = plot_roc(confusion, addsub)
+    # Plot the ROC curve.
+    plt.plot(ROC[:,0], ROC[:,1], lw=2)
+    plt.xlim(-0.1,1.1)
+    plt.ylim(-0.1,1.1)
+    plt.xlabel('$FPR(t)$')
+    plt.ylabel('$TPR(t)$')
+    plt.grid()
+    plt.title('subject '+ str(i)+', AUC = %.4f'%AUC)
+    #------------------------------------------------------------------------#
     Min_thrs = np.append(Min_thrs, getMin_thrs(confusion))
     AUC_smr = np.append(AUC_smr, AUC)
 

@@ -1,10 +1,11 @@
 The ds005 dataset, filtered ds005 dataset, and mni templates are stored here. Th
 e makefile is written such that:
  
-- 'make data' will pull in the appropriate data 
-- 'make unzip' will unzip, remove, and rename certain files
-- 'make validate' will run data.py to check the hashes of each downloaded file w
+- `make data` will pull in the appropriate data 
+- `make unzip` will unzip, remove, and rename certain files
+- `make validate` will run data.py to check the hashes of each downloaded file w
 ith a master hashlist included, ensuring all downloaded data is correct  
+- `make test` will run nosetest on the checking hashes function in data.py
 
 THE COMMANDS SHOULD BE DONE IN THIS ORDER to be successfully validated. The ds00
 5 folder contains subfolders for each subject, the most relevant of which are:

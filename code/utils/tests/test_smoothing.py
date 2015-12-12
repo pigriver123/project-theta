@@ -15,7 +15,7 @@ import sys
 from numpy.testing import assert_allclose
 
 # Append function path
-sys.path.append('..')
+sys.path.append('../functions')
 
 # Path to the first subject, first run, this is used as the test data for 
 # getGainLoss:

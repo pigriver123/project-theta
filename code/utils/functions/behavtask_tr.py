@@ -70,10 +70,3 @@ def events2neural_extend(behav_task, tr, n_trs):
         time_course[on:on + dur,9] = RT
     return time_course
 
-def plot_time_course(time_course):
-    """
-    Simple function to plot time_course, an array from return of 
-    events2neural_extend
-    """
-    plt.plot(time_course[:,0])    
-    plt.show()
