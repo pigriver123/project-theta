@@ -179,6 +179,17 @@ def test_calcBeta():
     assert_allclose(t_by_v.ravel(), regr.predict(X))
     # assert design
     assert_allclose(X, design[:,:4])
+    
+    #--------------------------------------------------------------------------#
+    Y = X[:,0] + X[:,1]*2 + X[:,2] + X[:,3] + 1
+    # myfunction when thrs != None
+    design1, t_by_v1, my_beta1 = calcBeta(Y, X[:,0], X[:,1], X[:,2], X[:,3], 1)
+    # assert the threshold values are produce different betas and tbyv
+    assert (t_by_v.ravel() != t_by_v1.ravel()).any()
+    assert (my_beta.ravel() != my_beta1.ravel()).all()
+    # assert design still the same
+    assert_allclose(X, design1[:,:4])
+
 
 def test_calcMRSS():
     # Like above, create a test matrix of regressors
