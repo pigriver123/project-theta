@@ -10,10 +10,16 @@ import json
 pathtodata = '../../data/'
 pathtofig = '../../paper/figures/'
 pathtofunction = '../utils/functions'
+pathtographing = '../utils/graphing'
 # Append fuction path
 sys.path.append(pathtofunction)
 # Import function
-from graphoutlier_functions import loadnib_dict, loadtxt_dict, plot_dvars, plot_fd, plot_meanSig
+from basic_util import loadnib_dict, loadtxt_dict
+
+# Append graphing path
+sys.path.append(pathtographing)
+# Import function
+from graphoutlier_functions import plot_dvars, plot_fd, plot_meanSig
 
 
 # load outlier files
