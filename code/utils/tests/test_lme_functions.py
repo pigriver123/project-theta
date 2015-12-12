@@ -12,14 +12,14 @@ Run with::
 # Loading modules.
 from __future__ import absolute_import, division, print_function
 import numpy as np
-import sys
+import sys, os
 from scipy import stats
 from sklearn import linear_model
 from numpy.testing import assert_almost_equal, assert_allclose
 
 
 # Append function path
-sys.path.append('..')
+sys.path.append(os.path.join(os.path.dirname(__file__), "../functions/"))
 
 # Path to the first subject, first run, this is used as the test data for 
 # getGainLoss:

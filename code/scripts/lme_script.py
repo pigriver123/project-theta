@@ -10,7 +10,7 @@ pathtofunction = '../utils/functions'
 sys.path.append(pathtofunction)
 
 from behavtask_tr import events2neural_extend, merge_cond
-from regression_functions import hrf, getRegressor, calcBeta, calcMRSS, deleteOutliers
+from regression_functions import hrf, getRegressor, deleteOutliers
 from lme_functions import calcBetaLme, calcSigProp, calcAnov, anovStat
 
 n_vols=240
