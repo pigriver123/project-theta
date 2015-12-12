@@ -6,5 +6,5 @@ scripts that utilize these functions.
 
 Our makefile is written such that when run from the code directory:
 
-- 'make test' will run the tests inside utils/tests to check our functions
-- 'make coverage' will check the coverage of our functions
+- `make test` will run the tests inside utils/tests to check our functions
+- `make coverage` will check the coverage of our functions
