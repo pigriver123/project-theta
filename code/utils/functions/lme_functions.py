@@ -2,18 +2,9 @@ from __future__ import division
 from statsmodels.regression.mixed_linear_model import MixedLM
 from scipy import stats  
 import pandas as pd
-import matplotlib.pyplot as plt
-import nibabel as nib
 import numpy as np
-from behavtask_tr import events2neural_extend, merge_cond
-from regression_functions import hrf, getRegressor, calcBeta, calcMRSS, deleteOutliers
-import os
-from scipy.stats import gamma
-import math
-import numpy.linalg as npl
-import json
 
-def calcBetaLme(data_full, gain_full, loss_full, linear_full, quad_full, run_group, thrshd):
+def calcBetaLme(data_full, gain_full, loss_full, linear_full, quad_full, run_group, thrshd=None):
     """ 
     function to calculate beta parameters.
     Input: data from bold file, two list of gain, loss regressor values
@@ -27,15 +18,24 @@ def calcBetaLme(data_full, gain_full, loss_full, linear_full, quad_full, run_gro
     fml = "bold ~ gain + loss"
     for k in np.arange(0,time_by_vox.shape[1]):
         ## set a threshold to idenfity the voxels inside the brain
-        if (np.mean(time_by_vox[:,k]) <= 400):
-            beta[k, :] = [0, 0, 0, 0, 0]
+        if thrshd != None:
+            if (np.mean(time_by_vox[:,k]) <= thrshd):
+                beta[k, :] = [0, 0, 0, 0, 0]
+            else:
+                dt = pd.DataFrame({'gain':gain_full,'loss':loss_full,'run_group':run_group,
+                              'ldrift':linear_full,'qdrift':quad_full,'bold':time_by_vox[:,k]})
+                mod_lme = MixedLM.from_formula(fml, dt, groups=dt["run_group"])
+                lme_result = mod_lme.fit()
+                beta[k, :] = [lme_result.fe_params["gain"], lme_result.pvalues["gain"], 
+                      lme_result.fe_params["loss"], lme_result.pvalues["loss"], lme_result.converged]
         else:
             dt = pd.DataFrame({'gain':gain_full,'loss':loss_full,'run_group':run_group,
-                              'ldrift':linear_full,'qdrift':quad_full,'bold':time_by_vox[:,k]})
+                          'ldrift':linear_full,'qdrift':quad_full,'bold':time_by_vox[:,k]})
             mod_lme = MixedLM.from_formula(fml, dt, groups=dt["run_group"])
             lme_result = mod_lme.fit()
             beta[k, :] = [lme_result.fe_params["gain"], lme_result.pvalues["gain"], 
-                      lme_result.fe_params["loss"], lme_result.pvalues["loss"], lme_result.converged]
+                  lme_result.fe_params["loss"], lme_result.pvalues["loss"], lme_result.converged]
+
     return beta
 
 
@@ -55,7 +55,7 @@ def calcSigProp(beta, sig_level):
     return sig_gain_prop, sig_loss_prop
 
 
-def calcAnov(data_full, run_group):
+def calcAnov(data_full, run_group, thrshold = None):
     """ 
     function to do ANOVA test between runs
     Input: data from bold file, dummy variable indicating the groups
@@ -66,23 +66,30 @@ def calcAnov(data_full, run_group):
     anov_test = np.empty([time_by_vox.shape[1],2])
     for k in np.arange(0,time_by_vox.shape[1]):
         ## set a threshold to idenfity the voxels inside the brain
-        if (np.mean(time_by_vox[:,k]) <= 400):
-            anov_test[k, :] = [0, 0]
+        if thrshold != None:
+            if (np.mean(time_by_vox[:,k]) <= thrshold):
+                anov_test[k, :] = [0, 0]
+            else:
+                anov_test[k, :]  = stats.f_oneway(time_by_vox[:,k][run_group==1], 
+                                                            time_by_vox[:,k][run_group==2],
+                                                            time_by_vox[:,k][run_group==3])
         else:
             anov_test[k, :]  = stats.f_oneway(time_by_vox[:,k][run_group==1], 
-                                                            time_by_vox[:,k][run_group==2],
-                                                            time_by_vox[:,k][run_group==3])  
+                                                        time_by_vox[:,k][run_group==2],
+                                                        time_by_vox[:,k][run_group==3])
+            
     return anov_test
 
 
 def anovStat(anov_test):
     """ 
-    function to do ANOVA test between runs
-    Input: data from bold file, dummy variable indicating the groups
-    Output: F test value and p value of anova test
+    function to do check proportions of p-values not equal to 0 and significant
+
+    Input: Result fo calcAnov: array of size (k,2) where k is number of voxels not equal 0
+    Output: Proportions of p-values(voxels) significant (but not 0)
     """    
     mask = anov_test[:, 1] != 0
     nzcount = mask.sum()
     p_value = anov_test[mask, 1]
-    prop_sig = np.sum(p_value <= 0.05/nzcount)/nzcount
+    prop_sig = np.sum(p_value <= 0.05/nzcount)/nzcount # Bonferroni correction
     return prop_sig
