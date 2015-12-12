@@ -15,7 +15,6 @@ import os
 import sys
 from numpy.testing import assert_allclose
 
-
 # Set path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../functions')))
 
@@ -74,8 +73,9 @@ def test_plot_roc():
     t_AUC = sum(dif1*dif2)* (-0.5)
 
     # my function
-    my_fig, my_AUC = plot_roc(t_data, fig, 1)
+    my_fig, my_ROC, my_AUC = plot_roc(t_data, fig)
 
     # assert
     assert (t_AUC == my_AUC)
     assert (fig == my_fig)
+    assert_allclose(t_roc, my_ROC)
