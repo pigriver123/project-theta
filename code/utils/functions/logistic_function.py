@@ -8,8 +8,8 @@ def create_confusion(logreg_proba, y, thrs_inc=0.01):
         
         Parameters
         ----------
-        actual: Actual responses, 1-d array with values 0 or 1
-        fitted: Fitted probabilities, 1-d array with values between 0 and 1
+        y: Actual responses, 1-d array with values 0 or 1
+        logreg_proba: Fitted probabilities, 2-d array with values between 0 and 1 in second column
         thrs_inc: increment of threshold probability (default 0.05)
         
         Returns
@@ -52,7 +52,7 @@ def getMin_thrs(confusion):
         false_pos: number of incorrect trues
         false_neg: number of incorrect falses
         """
-    thrs_min = np.argmin(confusion[:,3]+ confusion[:,4])
+    thrs_min = np.min(confusion[:,3]+ confusion[:,4])
     col_out = confusion[thrs_min, :]
     thrs = col_out[0]
     false_pos = col_out[3]
