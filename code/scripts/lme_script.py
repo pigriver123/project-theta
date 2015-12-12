@@ -1,14 +1,6 @@
 from __future__ import division
-from statsmodels.regression.mixed_linear_model import MixedLM
-from scipy import stats  
-import pandas as pd
-import matplotlib.pyplot as plt
 import nibabel as nib
 import numpy as np
-import os
-from scipy.stats import gamma
-import math
-import numpy.linalg as npl
 import json
 import sys
 
@@ -25,7 +17,6 @@ n_vols=240
 TR=2
 tr_times = np.arange(0, 30, TR)
 hrf_at_trs = hrf(tr_times)
-
 
 pathtofolder = '../../data/'
 
@@ -75,7 +66,7 @@ for i in range(1,17):
     sig_gain_prop[i-1], sig_loss_prop[i-1] = calcSigProp(beta, sig_level)
     write=pathtofolder + 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/sub0'+str(i).zfill(2)+'_lme_beta.txt'
     np.savetxt(write, beta)
-    anov_test = calcAnov(data_full, run_group)
+    anov_test = calcAnov(data_full, run_group, thrshd)
     anov_prop[i-1] = anovStat(anov_test)
 
 write=pathtofolder + 'ds005/models/lme_sig_gain_prop.txt'
