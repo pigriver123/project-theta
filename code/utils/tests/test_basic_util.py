@@ -48,5 +48,5 @@ def test_loadnib_dict():
     nib.save(img,'testnib.nii.gz')
     # my function
     my_dict = loadnib_dict('testnib.nii.gz', 'testnib')
-    assert (t_dict.keys()[0] == my_dict.keys()[0])
-    assert_array_equal(t_dict.values()[0], my_dict.values()[0])
+    assert (list(t_dict.keys())[0] == list(my_dict.keys())[0])
+    assert_array_equal(list(t_dict.values())[0], list(my_dict.values())[0])

@@ -65,8 +65,7 @@ def calcBeta(data, gain, loss, linear_dr, quad_dr, threshold=None):
     design[:, 3] = quad_dr
     designp = npl.pinv(design)
     if threshold!=None:
-        mean_data = np.mean(data, axis=-1)
-        mask = mean_data > threshold
+        mask = np.mean(data, axis=-1) > threshold
         data[~mask]=0
     T = data.shape[-1]
     time_by_vox = np.reshape(data, (-1, T)).T
