@@ -49,7 +49,7 @@ for i in np.arange(1, nsub+1):
     logreg_proba = logreg.predict_proba(X)
     confusion = create_confusion(logreg_proba, y)
     addsub = fig.add_subplot(4, 4, i)
-    addsub, AUC = plot_roc(confusion, addsub)
+    addsub, AUC = plot_roc(confusion, addsub, i)
     Min_thrs = np.append(Min_thrs, getMin_thrs(confusion))
     AUC_smr = np.append(AUC_smr, AUC)
 

@@ -60,7 +60,7 @@ def getMin_thrs(confusion):
     return thrs, false_pos, false_neg
 
 
-def plot_roc(confusion, fig):
+def plot_roc(confusion, fig, sub_i):
     """
         function to plot the ROC (receiver operating characteristic) curve and
         calculate the corresponding AUC (Area Under Curve).
@@ -97,5 +97,5 @@ def plot_roc(confusion, fig):
         AUC += (ROC[i+1,0]-ROC[i,0]) * (ROC[i+1,1]+ROC[i,1])
     AUC *= -0.5
     
-    plt.title('ROC curve, AUC = %.4f'%AUC)
+    plt.title('subject '+ str(sub_i)+', AUC = %.4f'%AUC)
     return fig, AUC
