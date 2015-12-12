@@ -74,7 +74,7 @@ def test_plot_roc():
     t_AUC = sum(dif1*dif2)* (-0.5)
 
     # my function
-    my_fig, my_AUC = plot_roc(t_data, fig)
+    my_fig, my_AUC = plot_roc(t_data, fig, 1)
 
     # assert
     assert (t_AUC == my_AUC)
