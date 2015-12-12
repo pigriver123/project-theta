@@ -18,7 +18,6 @@ TR=2
 tr_times = np.arange(0, 30, TR)
 hrf_at_trs = hrf(tr_times)
 
-
 pathtofolder = '../../data/'
 
 dvars_out = json.load(open(pathtofolder + "dvarsOutliers.txt"))
@@ -67,7 +66,7 @@ for i in range(1,17):
     sig_gain_prop[i-1], sig_loss_prop[i-1] = calcSigProp(beta, sig_level)
     write=pathtofolder + 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/sub0'+str(i).zfill(2)+'_lme_beta.txt'
     np.savetxt(write, beta)
-    anov_test = calcAnov(data_full, run_group)
+    anov_test = calcAnov(data_full, run_group, thrshd)
     anov_prop[i-1] = anovStat(anov_test)
 
 write=pathtofolder + 'ds005/models/lme_sig_gain_prop.txt'
