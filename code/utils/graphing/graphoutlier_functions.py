@@ -4,11 +4,25 @@ of fd, dvars, and meanSignal
 """
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
 
-sys.path.append('../functions')
+# Calculate mean this is same as the one in basic_util.py 
+# Test already written, included here because graphing functions not tested
+# but need to use above: 
+def vol_mean(data):
+    """ Return mean across voxels for $D `data`
+    
+    Input:
+        np array of data
+    Output: np array of dim (T,)
+        mean of data across all but the last dimension
+    """
+    mean_list = []
+    # Loop over the each volume and outputs the mean of each dimension
+    for i in range(data.shape[-1]):
+        mean = np.mean(data[...,i])
+        mean_list.append(mean)
+    return np.asarray(mean_list)
 
-from basic_util import vol_mean
 
 # Graphing dvars: RMS signal derivative    
 def plot_dvars(dvars_dict, dvars_outliers, saveit=False):
