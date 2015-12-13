@@ -8,17 +8,22 @@ import numpy as np
 
 def significant(X,Y,beta):
     """
-    Calculates t statistic for the first two entries of given beta estimates
-    
+    Calculates t statistic for the first two entries of given beta estimates. 
+    Particularly, this is a function to calculate t values for beta gain and 
+    beta loss for a single voxel.
+
     Parameters:
     -----------
     X: Design matrix
     Y: Data matrix
-    beta: beta estimates from OLS regression, 1-d array of length at least 2
+    beta: beta gain/loss estimates from OLS regression of a single voxel, 
+    1-d array of length = 2 
     
     Returns:
     --------
-    t-statistics: t1 (for beta1) and t2 (for beta2), each of type double
+    t1, t2: t value for beta gain, t value for beta loss, type: double
+
+    Example use for ith voxel: significant(X, Y[:,i], beta[:,i]) 
     """
 
     y_hat = X.dot(beta)
