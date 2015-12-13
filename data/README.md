@@ -1,7 +1,8 @@
 The ds005 dataset, filtered ds005 dataset, and mni templates are stored here. Th
 e makefile is written such that:
  
-- `make data` will pull in the appropriate data 
+- `make data` will pull in the appropriate data. NOTE: ds005 will be 16.7 GB, so
+can take a while to download 
 - `make unzip` will unzip, remove, and rename certain files
 - `make validate` will run data.py to check the hashes of each downloaded file w
 ith a master hashlist included, ensuring all downloaded data is correct  
