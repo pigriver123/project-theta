@@ -46,8 +46,8 @@ for i in range(1,17):
         task_cond4 = 'ds005/sub0'+str(i).zfill(2)+'/model/model001/onsets/task001_run00'+`j`+'/cond004.txt'
         parameters = merge_cond(behav_cond, task_cond1, task_cond2, task_cond3, task_cond4)
         neural_prediction = events2neural_extend(parameters,TR, n_vols)
-        gain, loss = getRegressor(TR, n_vols, hrf_at_trs, neural_prediction, standard = True)
-        data, gain, loss = deleteOutliers(data, gain, loss, i, run, dvars_out, fd_out)
+        gain, loss, linear_dr, quad_dr = getRegressor(TR, n_vols, hrf_at_trs, neural_prediction, standard = True)
+        data, gain, loss, linear_dr, quad_dr = deleteOutliers(data, gain, loss, i, run, dvars_out, fd_out)
         data_full = np.concatenate((data_full,data),axis=3)
         gain_full = np.concatenate((gain_full,gain),axis=0)
         loss_full = np.concatenate((loss_full,loss),axis=0)
