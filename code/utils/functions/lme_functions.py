@@ -3,8 +3,6 @@ from statsmodels.regression.mixed_linear_model import MixedLM
 from scipy import stats  
 import pandas as pd
 import numpy as np
-from behavtask_tr import events2neural_extend, merge_cond
-from regression_functions import hrf, getRegressor, calcBeta, calcMRSS, deleteOutliers
 
 def calcBetaLme(data_full, gain_full, loss_full, linear_full, quad_full, run_group, thrshd=None):
     """ 

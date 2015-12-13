@@ -8,8 +8,8 @@ def create_confusion(logreg_proba, y, thrs_inc=0.01):
         
         Parameters
         ----------
-        actual: Actual responses, 1-d array with values 0 or 1
-        fitted: Fitted probabilities, 1-d array with values between 0 and 1
+        y: Actual responses, 1-d array with values 0 or 1
+        logreg_proba: Fitted probabilities, 2-d array with values between 0 and 1 in second column
         thrs_inc: increment of threshold probability (default 0.05)
         
         Returns
@@ -52,7 +52,7 @@ def getMin_thrs(confusion):
         false_pos: number of incorrect trues
         false_neg: number of incorrect falses
         """
-    thrs_min = np.argmin(confusion[:,3]+ confusion[:,4])
+    thrs_min = np.min(confusion[:,3]+ confusion[:,4])
     col_out = confusion[thrs_min, :]
     thrs = col_out[0]
     false_pos = col_out[3]
@@ -60,7 +60,7 @@ def getMin_thrs(confusion):
     return thrs, false_pos, false_neg
 
 
-def plot_roc(confusion, fig, sub_i):
+def plot_roc(confusion, fig):
     """
         function to plot the ROC (receiver operating characteristic) curve and
         calculate the corresponding AUC (Area Under Curve).
@@ -83,19 +83,10 @@ def plot_roc(confusion, fig, sub_i):
         # Compute true  positive rate for current threshold.
         TPR_t = confusion[i, 1] / float(confusion[i, 1] + confusion[i, 4])
         ROC[i,1] = TPR_t
-    
-    # Plot the ROC curve.
-    plt.plot(ROC[:,0], ROC[:,1], lw=2)
-    plt.xlim(-0.1,1.1)
-    plt.ylim(-0.1,1.1)
-    plt.xlabel('$FPR(t)$')
-    plt.ylabel('$TPR(t)$')
-    plt.grid()
 
     AUC = 0.
     for i in range(confusion.shape[0]-1):
         AUC += (ROC[i+1,0]-ROC[i,0]) * (ROC[i+1,1]+ROC[i,1])
     AUC *= -0.5
     
-    plt.title('subject '+ str(sub_i)+', AUC = %.4f'%AUC)
-    return fig, AUC
+    return fig, ROC,  AUC
