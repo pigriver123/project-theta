@@ -3,7 +3,7 @@
 all: clean
 
 clean:
-	find . -name "*.so" -o -name "*.pyc" -o -name "*.pyx.md5" | xargs rm -f
+	find . -name "*.so" -o -name "*.pyc" -o -name "*.pyx.md5" -o -name "testnib.nii.gz" -o -name "temp.txt" | xargs rm -f
 
 coverage:
 	nosetests code/utils/tests data/tests --with-coverage --cover-package=data/data.py  --cover-package=code/utils/functions
