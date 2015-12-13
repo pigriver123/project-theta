@@ -1,6 +1,5 @@
 """
-    Function to calculated t statistics from regression data, design, adn beta
-results from regression
+    Function to calculated t statistics of a single voxel from regression data, design, and beta gain/loss
 """
 
 import numpy.linalg as npl
@@ -15,7 +14,7 @@ def significant(X,Y,beta):
     Parameters:
     -----------
     X: Design matrix
-    Y: Data matrix
+    Y: Data matrix for a single voxel
     beta: beta gain/loss estimates from OLS regression of a single voxel, 
     1-d array of length = 2 
     
