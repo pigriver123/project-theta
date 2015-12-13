@@ -17,7 +17,7 @@ from numpy.testing import assert_almost_equal
 
 
 # Set path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../functions')))
 
 # Load graph_functions:
 from calc_t import significant
