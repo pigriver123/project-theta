@@ -84,19 +84,26 @@ def test_getRegressor():
     n_to_remove = M-1
     convolved_gain = convolved_gain[:-n_to_remove]
     convolved_loss = convolved_loss[:-n_to_remove]
-    linear_dr = np.linspace(-1, 1, n_vols)
-    quadratic_dr = linear_dr ** 2
-    quadratic_dr -= np.mean(quadratic_dr)
+    lin_dr = np.linspace(-1, 1, n_vols)
+    quad_dr = lin_dr ** 2
+    quad_dr -= np.mean(quad_dr)
      
     #--------------------------------------------------------------------------#
     # my function 
     myconv_gain, myconv_loss, my_lin, my_quad = getRegressor(TR, n_vols, hrf_signal, neural_signal)
+    myconv_gain1, myconv_loss1, my_lin1, my_quad1 = getRegressor(TR, n_vols, hrf_signal, neural_signal, standard = True)
+
     #--------------------------------------------------------------------------#
     # assert checks
     assert (max(abs(convolved_gain-myconv_gain) < .0001))
     assert (max(abs(convolved_loss-myconv_loss) < .0001))
-    assert (max(abs(quadratic_dr-my_quad) < .0001))
-    assert (max(abs(linear_dr-my_lin) < .0001))
+    assert (max(abs(quad_dr-my_quad) < .0001))
+    assert (max(abs(lin_dr-my_lin) < .0001))
+    # Check standard template
+    assert_allclose(myconv_gain, myconv_gain1)
+    assert_allclose(myconv_loss, myconv_loss1)
+    assert (my_lin1 is None)
+    assert (my_quad1 is None)
 
 def test_deleteOutliers():
     # Create some test arrays/dictionaries
@@ -120,14 +127,25 @@ def test_deleteOutliers():
     t_quad1 = t_quad[t_nonoutliers1]
     #--------------------------------------------------------------------------#
     # my function
-    my_data1, my_gain1, my_loss1, my_lin1, my_quad1 = deleteOutliers(t_data, t_gain, t_loss, t_lin, t_quad, sub1, run1, dvars_out, fd_out)
+    # Raw
+    my_data1, my_gain1, my_loss1, my_lin1, my_quad1 = deleteOutliers(t_data, t_gain, t_loss, sub1, run1, dvars_out, fd_out, t_lin, t_quad)
+    # Standard
+    my_data1s, my_gain1s, my_loss1s, my_lin1s, my_quad1s = deleteOutliers(t_data, t_gain, t_loss, sub1, run1, dvars_out, fd_out)
+
     #--------------------------------------------------------------------------#
-    # asssert 1
+    # assert 1
     assert_allclose(my_data1, t_data1)
     assert_allclose(my_gain1, t_gain1)
     assert_allclose(my_loss1, t_loss1)
     assert_allclose(my_lin1, t_lin1)
     assert_allclose(my_quad1, t_quad1)
+    # standard
+    assert (my_lin1s is None)
+    assert (my_quad1s is None)
+    assert_allclose(my_data1, my_data1s)
+    assert_allclose(my_gain1, my_gain1s)
+    assert_allclose(my_loss1, my_loss1s)
+
 
     #--------------------------------------------------------------------------#
     # sub 2 run 2
@@ -142,7 +160,10 @@ def test_deleteOutliers():
     t_quad2 = t_quad[t_nonoutliers2]
     #--------------------------------------------------------------------------#
     # my function
-    my_data2, my_gain2, my_loss2 , my_lin2, my_quad2 = deleteOutliers(t_data, t_gain, t_loss,t_lin, t_quad, sub2, run2, dvars_out, fd_out)
+    my_data2, my_gain2, my_loss2 , my_lin2, my_quad2 = deleteOutliers(t_data, t_gain, t_loss, sub2, run2, dvars_out, fd_out, t_lin, t_quad)
+    my_data2s, my_gain2s, my_loss2s , my_lin2s, my_quad2s = deleteOutliers(t_data, t_gain, t_loss, sub2, run2, dvars_out, fd_out)
+
+    
     #--------------------------------------------------------------------------#
     # assert 2
     assert_allclose(my_data2, t_data2)
@@ -150,6 +171,13 @@ def test_deleteOutliers():
     assert_allclose(my_loss2, t_loss2)
     assert_allclose(my_lin2, t_lin2)
     assert_allclose(my_quad2, t_quad2)
+    # standard
+    assert (my_lin2s is None)
+    assert (my_quad2s is None)
+    assert_allclose(my_data2, my_data2s)
+    assert_allclose(my_gain2, my_gain2s)
+    assert_allclose(my_loss2, my_loss2s)
+
 
 
 def test_calcBeta():
@@ -184,11 +212,31 @@ def test_calcBeta():
     Y = X[:,0] + X[:,1]*2 + X[:,2] + X[:,3] + 1
     # myfunction when thrs != None
     design1, t_by_v1, my_beta1 = calcBeta(Y, X[:,0], X[:,1], X[:,2], X[:,3], 1)
+
     # assert the threshold values are produce different betas and tbyv
     assert (t_by_v.ravel() != t_by_v1.ravel()).any()
     assert (my_beta.ravel() != my_beta1.ravel()).all()
     # assert design still the same
     assert_allclose(X, design1[:,:4])
+
+    #--------------------------------------------------------------------------#
+    # Standard Template test
+    X_s = np.ones((6, 2))
+    X_s[:, 0] = np.array([1,2,3,4,5,6])
+    X_s[:, 1] = np.array([2,4,6,8,10,12])
+    Y_s = X_s[:,0] + X_s[:,1]*2  + 1
+    # Create linear regression object
+    regr_s = linear_model.LinearRegression()
+    # Train the model using the training sets
+    regr_s.fit(X_s, Y_s)
+
+    # my function standard 
+    design_s, t_by_v_s, my_beta_s = calcBeta(Y_s, X_s[:,0], X_s[:,1])
+
+    # assert the threshold values are produce different betas and tbyv
+    assert_allclose(t_by_v_s.ravel(), regr_s.predict(X_s))
+    # assert design
+    assert_allclose(X_s, design_s[:,:2])
 
 
 def test_calcMRSS():
@@ -211,4 +259,23 @@ def test_calcMRSS():
     #--------------------------------------------------------------------------#
     # assert
     assert (abs(test_MRSS-my_MRSS) < .0001) 
-   
+    #--------------------------------------------------------------------------#
+    # standard
+    X_s = np.ones((6, 2))
+    X_s[:, 0] = np.array([1,2,3,4,5,6])
+    X_s[:, 1] = np.array([2.5,4.1,6.3,9.7,10.1,12.3])
+    Y_s = np.array([10,12,14,15,17,20])
+    # Create linear regression object
+    regr_s = linear_model.LinearRegression()
+    # Train the model using the training sets
+    regr_s.fit(X_s, Y_s)
+    pred_s = regr_s.predict(X_s)
+    test_MRSS_s = np.mean(np.sum((pred_s - Y_s)**2/(Y_s.shape[-1]-3)))
+
+    # my function
+    my_MRSS_s = calcMRSS(Y_s, X_s[:,0], X_s[:,1])
+    #--------------------------------------------------------------------------#
+    # assert
+    assert (abs(test_MRSS_s-my_MRSS_s) < .0001) 
+
+
