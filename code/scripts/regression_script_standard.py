@@ -55,8 +55,8 @@ for i in range(1,17):
     X, Y, beta=calcBeta(data_full, gain_full, loss_full, threshold)
     # calculate t values
     t_val=np.zeros((2,139264))
-    for i in range(Y.shape[1]):
-        t_val[:,i] = significant(X,Y[:,i], beta[:,i])
+    for k in range(Y.shape[1]):
+        t_val[:,k] = significant(X,Y[:,k], beta[:,k])
     # file names for beta and t
     beta_file='../paper/data_results/sub0'+str(i).zfill(2)+'_standard_beta.txt'
     t_file='../paper/data_results/sub0'+str(i).zfill(2)+'_standard_tvals.txt'
