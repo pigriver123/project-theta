@@ -1,7 +1,7 @@
 import numpy as np
 import json
 import sys
-pathtofunction = '../utils'
+pathtofunction = '../utils/functions'
 # Append the sys path
 sys.path.append(pathtofunction)
 from outlierfunction import outlier
