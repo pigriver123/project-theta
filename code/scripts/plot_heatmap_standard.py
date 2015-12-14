@@ -32,7 +32,7 @@ for i in range(1,17):
         axis.get_xaxis().set_visible(False)
         axis.get_yaxis().set_visible(False)
         axis.set_title('Slice ' + str(plot_number))
-    plt.savefig('beta_gain_sub'+str(i)+'.png', dpi=40) 
+    plt.savefig('../../results/figures/beta_gain_sub'+str(i)+'.png', dpi=40) 
     plt.close()
     
     fig = plt.figure(figsize = (54.2, 28.4))
@@ -44,7 +44,7 @@ for i in range(1,17):
         axis.get_xaxis().set_visible(False)
         axis.get_yaxis().set_visible(False)
         axis.set_title('Slice ' + str(plot_number))
-    plt.savefig('beta_loss_sub'+str(i)+'.png', dpi=40) 
+    plt.savefig('../../results/figures/beta_loss_sub'+str(i)+'.png', dpi=40) 
     plt.close()
 
 
@@ -86,7 +86,7 @@ for i in range(1,17):
         axis.get_xaxis().set_visible(False)
         axis.get_yaxis().set_visible(False)
         axis.set_title('Slice ' + str(plot_number))
-    plt.savefig('t_gain_sub'+str(i)+'.png', dpi=40) 
+    plt.savefig('../../results/figures/t_gain_sub'+str(i)+'.png', dpi=40) 
     plt.close()
     
     fig = plt.figure(figsize = (54.2, 28.4))
@@ -97,7 +97,7 @@ for i in range(1,17):
         axis.get_xaxis().set_visible(False)
         axis.get_yaxis().set_visible(False)
         axis.set_title('Slice ' + str(plot_number))
-    plt.savefig('t_loss_sub'+str(i)+'.png', dpi=40) 
+    plt.savefig('../../results/figures/t_loss_sub'+str(i)+'.png', dpi=40) 
     plt.close()
 
 
