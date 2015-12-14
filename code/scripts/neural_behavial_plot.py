@@ -53,7 +53,7 @@ for subject in range(31, 61):
     axis.set_title('Z axis Slice ' + str(subject), fontsize = 26)
     plot_number += 1
 
-fig.savefig("sig_cor_z_gain.png")
+fig.savefig("../../results/figures/sig_cor_z_gain.png")
 
 """
 The following part of script will plot the significant loss p values of the linear regression
@@ -86,7 +86,7 @@ for subject in range(31, 61):
     axis.set_title('Z axis Slice ' + str(subject), fontsize = 26)
     plot_number += 1
 
-fig.savefig("sig_cor_z_loss.png")
+fig.savefig("../../results/figures/sig_cor_z_loss.png")
 
 """
 The following part of script will plot the significant difference p values of the linear regression
@@ -119,7 +119,7 @@ for subject in range(31, 61):
     axis.set_title('Z axis Slice ' + str(subject), fontsize = 26)
     plot_number += 1
 
-fig.savefig("sig_cor_z_gainloss.png")
+fig.savefig("../../results/figures/sig_cor_z_gainloss.png")
 
 """
 The following part of script will plot the significant difference p values of the linear regression
@@ -139,7 +139,7 @@ for subject in range(31, 61):
     axis.set_title('Y axis: Slice ' + str(subject), fontsize=18)
     plot_number += 1
 
-fig.savefig("sig_cor_y_neural_aversion.png")
+fig.savefig("../../results/figures/sig_cor_y_neural_aversion.png")
 
 """
 The following part of script will plot the linear regression plot of three voxels of behavial loss aversion
@@ -169,8 +169,11 @@ betalosses = betalosses.reshape(91, 109, 91, 16)
 
 Y = np.loadtxt("../../results/texts/lambda.txt")
 plot_neur_beh(22, 81, 44, betagains, betalosses, Y)
+fig.savefig("../../results/figures/linearreg_22_81_44.png")
 plot_neur_beh(71, 59, 56, betagains, betalosses, Y)
+fig.savefig("../../results/figures/linearreg_71_59_56.png")
 plot_neur_beh(46, 44, 68, betagains, betalosses, Y)
+fig.savefig("../../results/figures/linearreg_46_44_48.png.png")
 
 
 
