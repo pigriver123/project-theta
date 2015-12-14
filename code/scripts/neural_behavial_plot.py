@@ -14,7 +14,7 @@ import nibabel as nib
 sys.path.append('../utils/functions')
 from sig_region import stat_region
 sys.path.append('../utils/graphing')
-from neural_behavior.py import plot_neur_beh
+from neural_behavior import plot_neur_beh
 
 
 pgain = np.loadtxt("../../results/texts/pgain.txt")
