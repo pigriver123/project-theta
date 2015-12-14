@@ -76,6 +76,10 @@ for i in range(1,17):
     t_loss=t2
     t_gain[abs(t_gain)<=2.3]=np.nan
     t_loss[abs(t_loss)<=2.3]=np.nan
+    t_gainmax=t1max
+    t_gainmin=t1min
+    t_lossmax=t2max
+    t_lossmax=t2min
     
     fig = plt.figure(figsize = (54.2, 28.4))
     for plot_number in range(2, 32):
