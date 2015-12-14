@@ -35,4 +35,4 @@ def plot_neur_beh(x, y, z, betagains, betalosses, neural):
     plt.ylabel(r'Behavoiral aversion (In$\lambda$)', fontsize=12)
     plt.text(-80, 2.2, r'r = %.4f'%r_value +', p = %.4f'%p_value, fontsize=12)
     plt.title('('+str(x)+',  '+str(y)+',  '+str(z)+')', fontsize=18)
-    plt.savefig('('+str(x)+',  '+str(y)+',  '+str(z)+').png')
+    
