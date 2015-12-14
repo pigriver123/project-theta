@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import stats
 """
 Function to plot the linear regression picture of behavial loss aversion
 and neural loss aversion(-betagain-betaloss) at a single coordinate of standard brain
