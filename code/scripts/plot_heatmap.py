@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 for i in range(1,17):    
-    beta = np.loadtxt('../../paper/data_results/sub0'+str(i).zfill(2)+'_beta.txt')
+    beta = np.loadtxt('../../results/sub0'+str(i).zfill(2)+'_beta.txt')
     beta1 = np.reshape(beta.T,(64,64,34,-1))
     beta_gain = beta1[..., 0]
     beta_loss = beta1[..., 1]
@@ -42,7 +42,7 @@ for i in range(1,17):
 
 
 for i in range(1,17):
-    t_val = np.loadtxt('../../paper/data_results/sub0'+str(i).zfill(2)+'_tvals.txt')
+    t_val = np.loadtxt('../../results/sub0'+str(i).zfill(2)+'_tvals.txt')
     #reshape t
     t_val1 = np.reshape(t_val.T,(64,64,34,-1))
     t_gain = t_val1[..., 0]

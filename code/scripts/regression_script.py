@@ -21,8 +21,8 @@ hrf_at_trs = hrf(tr_times)
 
 os.chdir("../../data")
 
-dvars_out = json.load(open("../paper/data_results/dvarsOutliers.txt"))
-fd_out = json.load(open("../paper/data_results/fdOutliers.txt"))
+dvars_out = json.load(open("../results/dvarsOutliers.txt"))
+fd_out = json.load(open("../results/fdOutliers.txt"))
 # Threshold cutoff from histogram observation
 threshold = 400
 
@@ -62,8 +62,8 @@ for i in range(1,17):
     for k in range(Y.shape[1]):
         t_val[:,k] = significant(X,Y[:,k], beta[:,k])
     # file names for beta and t
-    beta_file='../paper/data_results/sub0'+str(i).zfill(2)+'_beta.txt'
-    t_file='../paper/data_results/sub0'+str(i).zfill(2)+'_tvals.txt'
+    beta_file='../results/sub0'+str(i).zfill(2)+'_beta.txt'
+    t_file='../results/sub0'+str(i).zfill(2)+'_tvals.txt'
     # save beta and t values to file
     np.savetxt(beta_file, beta)
     np.savetxt(t_file, t_val)
